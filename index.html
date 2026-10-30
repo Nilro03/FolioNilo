@@ -107,6 +107,16 @@
   .contact .btn:hover { background: var(--white); border-color: var(--white); }
   footer { text-align: center; padding: 28px; background: var(--cocoa); color: var(--nude); font-size: .9rem; font-weight: 300; border-top: 1px solid rgba(212,184,162,.25); }
 
+  /* Extras */
+  #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--nude); z-index: 20; }
+  .hero .typed { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.6rem; color: var(--mocha); margin-bottom: 18px; min-height: 2rem; }
+  .cursor { margin-left: 2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.show { opacity: 1; transform: none; }
+  nav ul a.active { color: var(--chocolate); text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--nude); }
+  @media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
+
   /* Phone */
   @media (max-width: 760px) {
     .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -139,6 +149,8 @@
 </head>
 <body>
 
+<div id="progress"></div>
+
 <header>
   <div class="wrap">
     <nav aria-label="Main">
@@ -160,6 +172,7 @@
       <div>
         <h1>Orlin</h1>
         <p class="full">Wan Orlin Balqis binti Wan Sapiansori</p>
+        <p class="typed"><span id="typed"></span><span class="cursor">|</span></p>
 
         <p class="lead">
           Information Systems student pursuing a Bachelor of Information Systems
@@ -430,6 +443,58 @@
   emailCard.addEventListener("click", ev => { if (ev.target === emailCard) emailCard.close(); });
 
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ===== Extras: animations, progress bar, active nav, typing ===== */
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Fade-up on scroll */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add("show"); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.15 });
+
+  function reveal(el, delay = 0) {
+    if (reduceMotion) return;
+    el.classList.add("reveal");
+    el.style.transitionDelay = delay + "ms";
+    io.observe(el);
+  }
+  document.querySelectorAll("section .wrap > *:not(#grid)").forEach(el => reveal(el));
+  new MutationObserver(() => {
+    grid.querySelectorAll(".card").forEach((c, i) => reveal(c, (i % 3) * 120));
+  }).observe(grid, { childList: true });
+
+  /* Scroll progress bar + active nav link */
+  const bar = document.getElementById("progress");
+  const links = [...document.querySelectorAll("nav ul a")];
+  const secs = links.map(a => document.querySelector(a.getAttribute("href")));
+  function onScroll() {
+    const h = document.documentElement;
+    bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + "%";
+    let current = -1;
+    secs.forEach((s, i) => { if (s.getBoundingClientRect().top < 120) current = i; });
+    links.forEach((a, i) => a.classList.toggle("active", i === current));
+  }
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* Typing effect */
+  const words = ["Hello, welcome!", "Thanks for visiting my portfolio", "Have a look around"];
+  const out = document.getElementById("typed");
+  if (reduceMotion) {
+    out.textContent = words[0];
+  } else {
+    let w = 0, c = 0, deleting = false;
+    (function tick() {
+      const word = words[w];
+      out.textContent = word.slice(0, c);
+      if (!deleting && c === word.length) { deleting = true; return setTimeout(tick, 1400); }
+      if (deleting && c === 0) { deleting = false; w = (w + 1) % words.length; }
+      c += deleting ? -1 : 1;
+      setTimeout(tick, deleting ? 40 : 80);
+    })();
+  }
 
   buildFilters();
   render("All");
