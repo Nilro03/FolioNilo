@@ -17,7 +17,7 @@
     --cocoa: #33221b;       /* dark sections */
     --white: #fbf7f2;
   }
-  *dialog { margin: auto; border: none; border-radius: 24px; max-width: 780px; width: calc(100% - 32px); max-height: 90vh; padding: 0; background: var(--white); color: var(--chocolate); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body { font-family: "Jost", system-ui, sans-serif; font-weight: 400; background: var(--beige); color: var(--chocolate); line-height: 1.7; }
   h1, h2, h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; line-height: 1.1; }
@@ -76,8 +76,8 @@
   .date { color: var(--mocha); font-size: .9rem; font-weight: 300; margin-bottom: 8px; }
   .card .sum { font-size: .95rem; font-weight: 300; }
 
-  /* Modal */
-  dialog { border: none; border-radius: 24px; max-width: 780px; width: calc(100% - 32px); max-height: 90vh; padding: 0; background: var(--white); color: var(--chocolate); }
+  /* Modal (pop-up windows) */
+  dialog { margin: auto; border: none; border-radius: 24px; max-width: 780px; width: calc(100% - 32px); max-height: 90vh; padding: 0; background: var(--white); color: var(--chocolate); }
   dialog::backdrop { background: rgba(51,34,27,.6); }
   .modal-inner { padding: 40px 36px 36px; }
   .modal-inner h3 { font-size: 2.4rem; font-style: italic; }
@@ -88,7 +88,7 @@
   .close { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; border: none; background: var(--chocolate); color: var(--white); font-size: 1.3rem; cursor: pointer; }
 
   /* Email pop-up card */
-  #emailCard { max-width: 420px; padding: 32px 36px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,.2); }
+  #emailCard { width: calc(100% - 32px); max-width: 420px; padding: 32px 36px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,.2); }
   #emailCard .label { font-size: .9rem; color: var(--mocha); margin-bottom: 6px; }
   #emailCard .address { font-size: 1.25rem; font-weight: 500; margin-bottom: 24px; word-break: break-all; }
   #emailCard .btn.ghost { margin-left: 0; }
@@ -107,15 +107,30 @@
   .contact .btn:hover { background: var(--white); border-color: var(--white); }
   footer { text-align: center; padding: 28px; background: var(--cocoa); color: var(--nude); font-size: .9rem; font-weight: 300; border-top: 1px solid rgba(212,184,162,.25); }
 
+  /* Phone */
   @media (max-width: 760px) {
     .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 48px; }
     .hero { text-align: center; }
     .hero p { margin-left: auto; margin-right: auto; }
     .btn.ghost { margin: 10px 0 0; }
-    nav ul { gap: 16px; font-size: .9rem; }
-    section { padding: 64px 0; }
+    section { padding: 64px 0; scroll-margin-top: 60px; }
     .roles li { flex-direction: column; gap: 2px; }
+
+    /* Smaller logo and tighter header */
+    nav { height: 60px; gap: 12px; }
+    .logo { font-size: 1.25rem; white-space: nowrap; }
+    nav ul { gap: 12px; font-size: .85rem; }
+    .modal-inner { padding: 36px 22px 28px; }
+    .modal-inner h3 { font-size: 1.9rem; }
   }
+
+  /* Very small phones */
+  @media (max-width: 400px) {
+    .wrap { padding: 0 18px; }
+    .logo { font-size: 1.1rem; }
+    nav ul { gap: 10px; font-size: .8rem; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .btn, .card .frame, .filters button { transition: none; }
