@@ -18,8 +18,9 @@
     --white: #fbf7f2;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { font-family: "Jost", system-ui, sans-serif; font-weight: 400; background: var(--beige); color: var(--chocolate); line-height: 1.7; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { font-family: "Jost", system-ui, sans-serif; font-weight: 400; background: var(--beige); color: var(--chocolate); line-height: 1.7; overflow-wrap: break-word; }
+  img { max-width: 100%; }
   h1, h2, h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; line-height: 1.1; }
   a { color: inherit; }
   :focus-visible { outline: 2px solid var(--chocolate); outline-offset: 4px; }
@@ -36,7 +37,6 @@
   .logo { font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 1.7rem; text-decoration: none; }
   nav ul { display: flex; gap: 30px; list-style: none; }
   nav ul a { text-decoration: none; color: var(--mocha); font-size: .98rem; }
-  nav ul a:hover { color: var(--chocolate); text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--nude); }
 
   /* Hero: arch-shaped photo */
   .hero { padding: 72px 0 104px; }
@@ -44,13 +44,11 @@
   .hero h1 { font-size: clamp(3.6rem, 10vw, 7.4rem); font-style: italic; font-weight: 500; letter-spacing: -0.01em; }
   .hero .full { font-size: 1.05rem; color: var(--mocha); margin: 10px 0 22px; font-weight: 300; }
   .hero p { max-width: 44ch; color: var(--chocolate); margin-bottom: 34px; }
-  .btn { display: inline-block; padding: 13px 32px; border-radius: 999px; background: var(--chocolate); color: var(--white); text-decoration: none; border: 1.5px solid var(--chocolate); font-weight: 400; transition: background .2s, color .2s; }
-  .btn:hover { background: var(--nude); border-color: var(--nude); color: var(--cocoa); }
+  .btn { display: inline-block; padding: 13px 32px; border-radius: 999px; background: var(--chocolate); color: var(--white); text-decoration: none; border: 1.5px solid var(--chocolate); font-weight: 400; transition: background .2s, color .2s; text-align: center; }
   .btn.ghost { background: transparent; color: var(--chocolate); margin-left: 10px; }
-  .btn.ghost:hover { background: var(--chocolate); border-color: var(--chocolate); color: var(--white); }
   .arch { position: relative; justify-self: center; width: min(100%, 360px); }
   .arch::before { content: ""; position: absolute; inset: -14px; border: 1.5px solid var(--nude); border-radius: 999px 999px 18px 18px; }
-  .arch img { position: relative; display: block; width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 999px 999px 14px 14px; background: var(--sand); }
+  .arch img { position: relative; display: block; width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover; border-radius: 999px 999px 14px 14px; background: var(--sand); }
 
   /* About */
   .about { background: var(--sand); }
@@ -63,12 +61,10 @@
   /* Events */
   .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 44px; }
   .filters button { font: inherit; font-weight: 400; padding: 8px 24px; border-radius: 999px; border: 1.5px solid var(--nude); background: transparent; color: var(--chocolate); cursor: pointer; transition: background .2s; }
-  .filters button:hover { background: var(--sand); }
   .filters button[aria-pressed="true"] { background: var(--chocolate); border-color: var(--chocolate); color: var(--white); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 36px 28px; }
-  .card { background: none; border: none; text-align: center; font: inherit; color: inherit; cursor: pointer; padding: 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 36px 28px; }
+  .card { background: none; border: none; text-align: center; font: inherit; color: inherit; cursor: pointer; padding: 0; min-width: 0; }
   .card .frame { overflow: hidden; border-radius: 999px 999px 16px 16px; border: 1.5px solid var(--nude); padding: 8px; transition: background .25s; }
-  .card:hover .frame { background: var(--nude); }
   .card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; border-radius: 999px 999px 10px 10px; background: var(--sand); }
   .card-body { padding: 20px 8px 0; }
   .card h3 { font-size: 1.7rem; margin-bottom: 4px; }
@@ -77,15 +73,15 @@
   .card .sum { font-size: .95rem; font-weight: 300; }
 
   /* Modal (pop-up windows) */
-  dialog { margin: auto; border: none; border-radius: 24px; max-width: 780px; width: calc(100% - 32px); max-height: 90vh; padding: 0; background: var(--white); color: var(--chocolate); }
+  dialog { margin: auto; border: none; border-radius: 24px; max-width: 780px; width: calc(100% - 32px); max-height: 90vh; max-height: 90dvh; padding: 0; background: var(--white); color: var(--chocolate); overflow-y: auto; overflow-x: hidden; }
   dialog::backdrop { background: rgba(51,34,27,.6); }
   .modal-inner { padding: 40px 36px 36px; }
-  .modal-inner h3 { font-size: 2.4rem; font-style: italic; }
+  .modal-inner h3 { font-size: 2.4rem; font-style: italic; padding-right: 36px; }
   .modal-inner ul { margin: 18px 0 24px 20px; color: var(--mocha); font-weight: 300; }
   .modal-inner li { margin-bottom: 6px; }
-  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 14px; }
   .gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 14px; background: var(--sand); }
-  .close { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; border: none; background: var(--chocolate); color: var(--white); font-size: 1.3rem; cursor: pointer; }
+  .close { position: absolute; top: 14px; right: 14px; width: 44px; height: 44px; border-radius: 50%; border: none; background: var(--chocolate); color: var(--white); font-size: 1.4rem; cursor: pointer; z-index: 1; }
 
   /* Email pop-up card */
   #emailCard { width: calc(100% - 32px); max-width: 420px; padding: 32px 36px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,.2); }
@@ -104,46 +100,75 @@
   .contact .lead { color: var(--nude); }
   .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
   .contact .btn { background: var(--nude); border-color: var(--nude); color: var(--cocoa); }
-  .contact .btn:hover { background: var(--white); border-color: var(--white); }
   footer { text-align: center; padding: 28px; background: var(--cocoa); color: var(--nude); font-size: .9rem; font-weight: 300; border-top: 1px solid rgba(212,184,162,.25); }
 
   /* Extras */
   #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--nude); z-index: 20; }
-  .hero .typed { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.6rem; color: var(--mocha); margin-bottom: 18px; min-height: 2rem; }
+  .hero .typed { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.6rem; color: var(--mocha); margin-bottom: 18px; min-height: 2rem; line-height: 1.3; }
   .cursor { margin-left: 2px; animation: blink 1s steps(1) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
   .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s ease; }
   .reveal.show { opacity: 1; transform: none; }
   nav ul a.active { color: var(--chocolate); text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--nude); }
-  @media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
 
-  /* Phone */
+  /* Hover effects only on devices that can hover (stops "sticky" hover on phones) */
+  @media (hover: hover) {
+    nav ul a:hover { color: var(--chocolate); text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--nude); }
+    .btn:hover { background: var(--nude); border-color: var(--nude); color: var(--cocoa); }
+    .btn.ghost:hover { background: var(--chocolate); border-color: var(--chocolate); color: var(--white); }
+    .filters button:hover { background: var(--sand); }
+    .filters button[aria-pressed="true"]:hover { background: var(--chocolate); }
+    .card:hover .frame { background: var(--nude); }
+    .contact .btn:hover { background: var(--white); border-color: var(--white); }
+  }
+
+  /* Tablet and phone */
   @media (max-width: 760px) {
     .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 48px; }
-    .hero { text-align: center; }
-    .hero p { margin-left: auto; margin-right: auto; }
-    .btn.ghost { margin: 10px 0 0; }
     section { padding: 64px 0; scroll-margin-top: 60px; }
+
+    /* Hero: photo on top, text centered below */
+    .hero { padding: 40px 0 72px; text-align: center; }
+    .hero-grid { gap: 40px; }
+    .arch { order: -1; width: min(70%, 260px); }
+    .hero p { margin-left: auto; margin-right: auto; }
+    .hero .typed { font-size: 1.35rem; min-height: 3.4rem; }
+    .hero .btn { display: block; width: 100%; max-width: 320px; margin: 0 auto 12px; }
+    .hero .btn.ghost { margin: 0 auto; }
+
+    .skills { padding: 26px 24px; }
+    .filters { margin-bottom: 32px; }
+    .filters button { padding: 8px 18px; }
+    .card h3 { font-size: 1.55rem; }
+
+    /* Roles stack */
     .roles li { flex-direction: column; gap: 2px; }
+    .roles span { white-space: normal; }
 
     /* Smaller logo and tighter header */
     nav { height: 60px; gap: 12px; }
     .logo { font-size: 1.25rem; white-space: nowrap; }
-    nav ul { gap: 12px; font-size: .85rem; }
+    nav ul { gap: 14px; }
+    nav ul a { font-size: .85rem; }
+
     .modal-inner { padding: 36px 22px 28px; }
     .modal-inner h3 { font-size: 1.9rem; }
+    #emailCard { padding: 28px 22px; }
   }
 
   /* Very small phones */
   @media (max-width: 400px) {
     .wrap { padding: 0 18px; }
     .logo { font-size: 1.1rem; }
-    nav ul { gap: 10px; font-size: .8rem; }
+    nav ul { gap: 10px; }
+    nav ul a { font-size: .8rem; }
+    .contact .btn { width: 100%; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .btn, .card .frame, .filters button { transition: none; }
+    .cursor { animation: none; }
   }
 </style>
 </head>
@@ -425,6 +450,7 @@
     g.innerHTML = "";
     e.images.forEach((f, i) => g.appendChild(makeImg(f, e.title + " photo " + (i + 1))));
     modal.showModal();
+    modal.scrollTop = 0;
   }
 
   /* Event window */
