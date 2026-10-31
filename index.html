@@ -34,7 +34,7 @@
   /* Nav */
   header { position: sticky; top: 0; z-index: 10; background: rgba(242,233,223,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--sand); }
   nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
-  .logo { font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 1.7rem; text-decoration: none; }
+  .logo { font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 1.7rem; text-decoration: none; flex-shrink: 0; }
   nav ul { display: flex; gap: 30px; list-style: none; }
   nav ul a { text-decoration: none; color: var(--mocha); font-size: .98rem; }
 
@@ -46,6 +46,7 @@
   .hero p { max-width: 44ch; color: var(--chocolate); margin-bottom: 34px; }
   .btn { display: inline-block; padding: 13px 32px; border-radius: 999px; background: var(--chocolate); color: var(--white); text-decoration: none; border: 1.5px solid var(--chocolate); font-weight: 400; transition: background .2s, color .2s; text-align: center; }
   .btn.ghost { background: transparent; color: var(--chocolate); margin-left: 10px; }
+  .btn.sm { padding: 7px 22px; font-size: .9rem; }
   .arch { position: relative; justify-self: center; width: min(100%, 360px); }
   .arch::before { content: ""; position: absolute; inset: -14px; border: 1.5px solid var(--nude); border-radius: 999px 999px 18px 18px; }
   .arch img { position: relative; display: block; width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover; border-radius: 999px 999px 14px 14px; background: var(--sand); }
@@ -58,7 +59,17 @@
   .skills dt:first-child { margin-top: 0; }
   .skills dd { color: var(--mocha); font-weight: 300; }
 
-  /* Events */
+  /* Skills section */
+  .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px; text-align: left; }
+  .skill-card { background: var(--white); border-radius: 22px; padding: 28px 28px 30px; min-width: 0; }
+  .skill-card.wide { grid-column: 1 / -1; }
+  .skill-card h3 { font-size: 1.6rem; font-style: italic; margin-bottom: 16px; }
+  .skill-card p { color: var(--mocha); font-weight: 300; margin-bottom: 16px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+  .chip { padding: 5px 14px; border: 1.5px solid var(--nude); border-radius: 999px; font-size: .92rem; line-height: 1.5; }
+  .chip small { color: var(--mocha); font-weight: 300; font-size: .8rem; margin-left: 4px; }
+
+  /* Events + course projects (same card style) */
   .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 44px; }
   .filters button { font: inherit; font-weight: 400; padding: 8px 24px; border-radius: 999px; border: 1.5px solid var(--nude); background: transparent; color: var(--chocolate); cursor: pointer; transition: background .2s; }
   .filters button[aria-pressed="true"] { background: var(--chocolate); border-color: var(--chocolate); color: var(--white); }
@@ -66,11 +77,17 @@
   .card { background: none; border: none; text-align: center; font: inherit; color: inherit; cursor: pointer; padding: 0; min-width: 0; }
   .card .frame { overflow: hidden; border-radius: 999px 999px 16px 16px; border: 1.5px solid var(--nude); padding: 8px; transition: background .25s; }
   .card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; border-radius: 999px 999px 10px 10px; background: var(--sand); }
+
+  /* Course projects: rectangle frame instead of arch */
+  .card.rect .frame { border-radius: 16px; }
+  .card.rect img { aspect-ratio: 4/3; border-radius: 10px; }
+
   .card-body { padding: 20px 8px 0; }
   .card h3 { font-size: 1.7rem; margin-bottom: 4px; }
   .role { color: var(--mocha); font-size: .98rem; }
   .date { color: var(--mocha); font-size: .9rem; font-weight: 300; margin-bottom: 8px; }
   .card .sum { font-size: .95rem; font-weight: 300; }
+  .empty { color: var(--mocha); grid-column: 1 / -1; text-align: center; }
 
   /* Modal (pop-up windows) */
   dialog { margin: auto; border: none; border-radius: 24px; max-width: 780px; width: calc(100% - 32px); max-height: 90vh; max-height: 90dvh; padding: 0; background: var(--white); color: var(--chocolate); overflow-y: auto; overflow-x: hidden; }
@@ -79,8 +96,13 @@
   .modal-inner h3 { font-size: 2.4rem; font-style: italic; padding-right: 36px; }
   .modal-inner ul { margin: 18px 0 24px 20px; color: var(--mocha); font-weight: 300; }
   .modal-inner li { margin-bottom: 6px; }
+  .modal-inner ul.chips { margin: 0 0 22px; color: var(--chocolate); font-weight: 400; }
+  .modal-inner ul.chips li { margin-bottom: 0; }
+  .plinks { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+  .plinks .btn.ghost { margin-left: 0; }
   .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 14px; }
   .gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 14px; background: var(--sand); }
+  .gallery.fit img { object-fit: contain; }
   .close { position: absolute; top: 14px; right: 14px; width: 44px; height: 44px; border-radius: 50%; border: none; background: var(--chocolate); color: var(--white); font-size: 1.4rem; cursor: pointer; z-index: 1; }
 
   /* Email pop-up card */
@@ -137,6 +159,7 @@
     .hero .btn.ghost { margin: 0 auto; }
 
     .skills { padding: 26px 24px; }
+    .skill-card { padding: 24px 22px; }
     .filters { margin-bottom: 32px; }
     .filters button { padding: 8px 18px; }
     .card h3 { font-size: 1.55rem; }
@@ -145,11 +168,12 @@
     .roles li { flex-direction: column; gap: 2px; }
     .roles span { white-space: normal; }
 
-    /* Smaller logo and tighter header */
-    nav { height: 60px; gap: 12px; }
+    /* Tighter header, menu scrolls sideways if it does not fit */
+    nav { height: 60px; gap: 14px; }
     .logo { font-size: 1.25rem; white-space: nowrap; }
-    nav ul { gap: 14px; }
-    nav ul a { font-size: .85rem; }
+    nav ul { gap: 16px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+    nav ul::-webkit-scrollbar { display: none; }
+    nav ul a { font-size: .85rem; white-space: nowrap; }
 
     .modal-inner { padding: 36px 22px 28px; }
     .modal-inner h3 { font-size: 1.9rem; }
@@ -160,7 +184,7 @@
   @media (max-width: 400px) {
     .wrap { padding: 0 18px; }
     .logo { font-size: 1.1rem; }
-    nav ul { gap: 10px; }
+    nav ul { gap: 12px; }
     nav ul a { font-size: .8rem; }
     .contact .btn { width: 100%; }
   }
@@ -182,8 +206,9 @@
       <a class="logo" href="#top">My Portfolio</a>
       <ul>
         <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
         <li><a href="#events">Events</a></li>
-        <li><a href="#roles">Roles</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -234,6 +259,94 @@
     </div>
   </section>
 
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap center">
+      <h2>Skills</h2>
+      <p class="lead">Tools and skills I use for my studies, projects and events.</p>
+
+      <div class="skill-grid" id="skillGrid">
+        <div class="skill-card">
+          <h3>Technical &amp; Productivity</h3>
+          <ul class="chips">
+            <li class="chip">Microsoft Word</li>
+            <li class="chip">Microsoft Excel</li>
+            <li class="chip">Google Docs</li>
+            <li class="chip">Canva</li>
+            <li class="chip">Power BI</li>
+            <li class="chip">Oracle</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <h3>Programming &amp; Development</h3>
+          <ul class="chips">
+            <li class="chip">Python</li>
+            <li class="chip">C++</li>
+            <li class="chip">PHP</li>
+            <li class="chip">JavaScript</li>
+            <li class="chip">Laravel</li>
+            <li class="chip">MySQL</li>
+            <li class="chip">HTML</li>
+            <li class="chip">CSS</li>
+            <li class="chip">Git</li>
+            <li class="chip">Cisco</li>
+            <li class="chip">Laragon</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <h3>Design &amp; Multimedia</h3>
+          <ul class="chips">
+            <li class="chip">Figma</li>
+            <li class="chip">Adobe Photoshop</li>
+            <li class="chip">Adobe Premiere Pro</li>
+            <li class="chip">CapCut</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <h3>Languages</h3>
+          <ul class="chips">
+            <li class="chip">English</li>
+            <li class="chip">Malay</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <h3>Soft Skills</h3>
+          <ul class="chips">
+            <li class="chip">Self-Learning</li>
+            <li class="chip">Teamwork</li>
+            <li class="chip">Time Management</li>
+            <li class="chip">Communication</li>
+            <li class="chip">Hardworking</li>
+            <li class="chip">Problem-Solving</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <h3>Activities &amp; Involvement</h3>
+          <p>Active as a committee member and volunteer, contributing across logistics, publicity and event operations.</p>
+          <ul class="chips">
+            <li class="chip">Logistics</li>
+            <li class="chip">Publicity</li>
+            <li class="chip">Event Operations</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSE PROJECTS -->
+  <section id="projects" class="about">
+    <div class="wrap center">
+      <h2>Course projects</h2>
+      <p class="lead">Projects I built for my subjects at UiTM. Select one to see the details and pictures.</p>
+      <div class="grid" id="projectGrid"></div>
+    </div>
+  </section>
+
   <!-- EVENTS -->
   <section id="events">
     <div class="wrap center">
@@ -281,7 +394,7 @@
   <a class="btn ghost" href="#" id="closeCard">Close</a>
 </dialog>
 
-<!-- Event details window -->
+<!-- Details window (used by both events and projects) -->
 <dialog id="modal" aria-labelledby="m-title">
   <button class="close" id="close" aria-label="Close">&times;</button>
   <div class="modal-inner">
@@ -289,11 +402,119 @@
     <p class="role" id="m-role"></p>
     <p class="date" id="m-date"></p>
     <ul id="m-points"></ul>
+    <ul class="chips" id="m-tech"></ul>
+    <div class="plinks" id="m-links"></div>
     <div class="gallery" id="m-gallery"></div>
   </div>
 </dialog>
 
 <script>
+  /* =====================================================
+     ADD YOUR COURSE PROJECTS HERE
+     Copy one block, paste it below, and change the text.
+     cover:  the picture shown on the card (put it in the "images" folder)
+     images: the pictures shown in the pop-up window
+     tech:   tools and languages used
+     links:  optional buttons. Leave the list empty [] for none.
+     ===================================================== */
+    const projects = [
+    {
+      title: "Traffic Accident Severity Prediction",
+      role: "Final Year Project (FYP)",
+      date: "2026",
+      summary: "Machine learning system that predicts how severe a road accident is.",
+      points: [
+        "Uses the US Accidents dataset from Kaggle, with over seven million accident records",
+        "Balances the data with random undersampling and SMOTENC, because minor accidents far outnumber severe ones",
+        "Compares Random Forest, SVM and LightGBM to find the best model, following the CRISP-DM framework",
+        "Planned interactive Power BI dashboard to show the predicted results"
+      ],
+      tech: ["Python", "Random Forest", "SVM", "LightGBM", "SMOTENC", "Power BI"],
+      links: [],
+      cover: "fyp-cover.jpg",
+      images: ["fyp-1.jpg", "fyp-2.jpg", "fyp-3.jpg"]
+    },
+    {
+      title: "E2E Service Data System, SUK Kelantan",
+      role: "CSC339: Industrial Training",
+      date: "2025",
+      summary: "Web system for Kelantan departments to submit service data and generate reports.",
+      points: [
+        "Built during industrial training at the Information Technology Management Division, State Secretary Office of Kelantan",
+        "Three user roles: main administrator, administrator and reporter, so departments submit data and admins check it before it goes to the central administration",
+        "Email notifications, automatic report generation and charts for analysing the data",
+        "Role-based access and an audit trail that tracks user actions"
+      ],
+      tech: ["Laravel", "JavaScript", "MySQL", "Laragon"],
+      links: [],
+      cover: "e2e-cover.jpg",
+      images: ["e2e-1.jpg", "e2e-2.jpg", "e2e-3.jpg"]
+    },
+    {
+      title: "Half Full Cafe Ordering System",
+      role: "ICT501: Database Management System",
+      date: "2025",
+      summary: "Online ordering database system for a cafe in Sungai Petani, with dine-in and pickup orders.",
+      points: [
+        "Aims to cut waiting time, reduce order errors and separate dine-in from pickup orders",
+        "ERD and flowchart drawn in Draw.io, then the database and web app built in Oracle APEX",
+        "Dashboard with interactive charts for table usage, revenue by payment method and sales",
+        "Manages customers, inventory, staff, suppliers, menu, orders and payments, with 10 SQL queries"
+      ],
+      tech: ["Oracle APEX", "Oracle SQL", "Draw.io", "JavaScript"],
+      links: [],
+      cover: "halffull-cover.jpg",
+      images: ["halffull-1.jpg", "halffull-2.jpg", "halffull-3.jpg"]
+    },
+    {
+      title: "FloraSense",
+      role: "ITT569: Internet of Things (IoT)",
+      date: "July 2026",
+      summary: "IoT smart plant monitoring system with AI plant health advice.",
+      points: [
+        "An ESP8266 reads temperature, humidity and soil moisture and uploads the data to Firebase",
+        "A Python program sends the readings to Gemini AI, which returns a health score, risk level and watering advice",
+        "The Blynk mobile app shows live readings and AI advice, sends alerts and lets users switch the water pump on and off",
+        "Tested on a real potted plant with an LCD display, relay and mini water pump"
+      ],
+      tech: ["ESP8266", "DHT11", "Firebase", "Blynk", "Python", "Gemini API"],
+      links: [],
+      cover: "florasense-cover.jpg",
+      images: ["florasense-1.jpg", "florasense-2.jpg", "florasense-3.jpg"]
+    },
+    {
+      title: "Skintific Review Sentiment Analysis",
+      role: "ISP610: Business Data Analytics",
+      date: "July 2026",
+      summary: "Classifying Shopee reviews of a moisturiser as positive or negative.",
+      points: [
+        "Collected and cleaned about 1,000 customer reviews, including English and Malay stopword removal",
+        "Turned the text into TF-IDF features and compared Random Forest, Naive Bayes and Deep Learning in RapidMiner",
+        "Deep Learning performed best with 89.87% accuracy and 69.07% precision",
+        "Tested on 49 unseen reviews, with about 92% agreement in a manual check"
+      ],
+      tech: ["RapidMiner", "TF-IDF", "Random Forest", "Naive Bayes", "Deep Learning"],
+      links: [],
+      cover: "isp610-cover.jpg",
+      images: ["isp610-1.jpg", "isp610-2.jpg", "isp610-3.jpg"]
+    },
+    {
+      title: "SmartJog AI",
+      role: "ISP624 group project (Team Solara)",
+      date: "2026",
+      summary: "IoT jogging route recommendation app for smart townships.",
+      points: [
+        "Proposed ESP32 and DHT22 sensors to measure temperature and humidity along jogging routes",
+        "Firebase stores the readings and a Flutter app shows live conditions and a route map",
+        "Routes are ranked by heat, humidity, distance and shade, and marked Suitable, Use Caution or Not Recommended with a reason",
+        "Designed the app screens, from login and home to the route map"
+      ],
+      tech: ["ESP32", "DHT22", "Firebase", "Flutter"],
+      links: [{ label: "GitHub", url: "https://nilro03.github.io/SmartJog.github.io/" }],
+      cover: "smartjog-cover.jpg",
+      images: ["smartjog-1.jpg", "smartjog-2.jpg", "smartjog-3.jpg"]
+    }
+  ];
   /* =====================================================
      ADD YOUR EVENTS HERE
      Copy one block, paste it below, and change the text.
@@ -396,31 +617,49 @@
   }
 
   const grid = document.getElementById("grid");
+  const projectGrid = document.getElementById("projectGrid");
   const filters = document.getElementById("filters");
   const modal = document.getElementById("modal");
   const emailCard = document.getElementById("emailCard");
 
+  /* One card design for both events and projects.
+     Projects get the "rect" class (rectangle frame), events keep the arch. */
+  function buildCard(item, coverFile, isProject) {
+    const card = document.createElement("button");
+    card.className = "card" + (isProject ? " rect" : "");
+    card.type = "button";
+    const frame = document.createElement("div");
+    frame.className = "frame";
+    frame.appendChild(makeImg(coverFile, item.title));
+    card.appendChild(frame);
+    const body = document.createElement("div");
+    body.className = "card-body";
+    body.innerHTML = `<h3></h3><p class="role"></p><p class="date"></p><p class="sum"></p>`;
+    body.querySelector("h3").textContent = item.title;
+    body.querySelector(".role").textContent = item.role;
+    body.querySelector(".date").textContent = item.date;
+    body.querySelector(".sum").textContent = item.summary;
+    card.appendChild(body);
+    card.addEventListener("click", () => openModal(item, isProject));
+    return card;
+  }
+
+  function renderProjects() {
+    projectGrid.innerHTML = "";
+    if (!projects.length) {
+      const p = document.createElement("p");
+      p.className = "empty";
+      p.textContent = "Projects coming soon.";
+      projectGrid.appendChild(p);
+      return;
+    }
+    projects.forEach(p => projectGrid.appendChild(buildCard(p, p.cover || p.images[0], true)));
+  }
+
   function render(category) {
     grid.innerHTML = "";
-    events.filter(e => category === "All" || e.category === category).forEach(e => {
-      const card = document.createElement("button");
-      card.className = "card";
-      card.type = "button";
-      const frame = document.createElement("div");
-      frame.className = "frame";
-      frame.appendChild(makeImg(e.images[0], e.title));
-      card.appendChild(frame);
-      const body = document.createElement("div");
-      body.className = "card-body";
-      body.innerHTML = `<h3></h3><p class="role"></p><p class="date"></p><p class="sum"></p>`;
-      body.querySelector("h3").textContent = e.title;
-      body.querySelector(".role").textContent = e.role;
-      body.querySelector(".date").textContent = e.date;
-      body.querySelector(".sum").textContent = e.summary;
-      card.appendChild(body);
-      card.addEventListener("click", () => openModal(e));
-      grid.appendChild(card);
-    });
+    events.filter(e => category === "All" || e.category === category)
+      .forEach(e => grid.appendChild(buildCard(e, e.images[0], false)));
   }
 
   function buildFilters() {
@@ -439,21 +678,52 @@
     });
   }
 
-  function openModal(e) {
+  function openModal(e, isProject) {
     document.getElementById("m-title").textContent = e.title;
     document.getElementById("m-role").textContent = e.role;
     document.getElementById("m-date").textContent = e.date;
+
     const ul = document.getElementById("m-points");
     ul.innerHTML = "";
     e.points.forEach(p => { const li = document.createElement("li"); li.textContent = p; ul.appendChild(li); });
+
+    /* Tech tags (projects only) */
+    const tech = document.getElementById("m-tech");
+    tech.innerHTML = "";
+    (e.tech || []).forEach(t => {
+      const li = document.createElement("li");
+      li.className = "chip";
+      li.textContent = t;
+      tech.appendChild(li);
+    });
+    tech.hidden = !(e.tech && e.tech.length);
+
+    /* Optional link buttons (projects only) */
+    const links = document.getElementById("m-links");
+    links.innerHTML = "";
+    const real = (e.links || []).filter(l => l.url);
+    real.forEach(l => {
+      const a = document.createElement("a");
+      a.className = "btn ghost sm";
+      a.href = l.url;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = l.label;
+      links.appendChild(a);
+    });
+    links.hidden = !real.length;
+
+    /* Pictures: projects use "contain" so charts and screenshots are not cropped */
     const g = document.getElementById("m-gallery");
     g.innerHTML = "";
-    e.images.forEach((f, i) => g.appendChild(makeImg(f, e.title + " photo " + (i + 1))));
+    g.classList.toggle("fit", !!isProject);
+    e.images.forEach((f, i) => g.appendChild(makeImg(f, e.title + " picture " + (i + 1))));
+
     modal.showModal();
     modal.scrollTop = 0;
   }
 
-  /* Event window */
+  /* Details window */
   document.getElementById("close").addEventListener("click", () => modal.close());
   modal.addEventListener("click", ev => { if (ev.target === modal) modal.close(); });
 
@@ -469,6 +739,9 @@
   emailCard.addEventListener("click", ev => { if (ev.target === emailCard) emailCard.close(); });
 
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* Build the projects before the animations pick them up */
+  renderProjects();
 
   /* ===== Extras: animations, progress bar, active nav, typing ===== */
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -486,7 +759,8 @@
     el.style.transitionDelay = delay + "ms";
     io.observe(el);
   }
-  document.querySelectorAll("section .wrap > *:not(#grid)").forEach(el => reveal(el));
+  document.querySelectorAll("section .wrap > *:not(#grid):not(#projectGrid):not(#skillGrid)").forEach(el => reveal(el));
+  document.querySelectorAll("#skillGrid .skill-card, #projectGrid .card, #projectGrid .empty").forEach((el, i) => reveal(el, (i % 3) * 120));
   new MutationObserver(() => {
     grid.querySelectorAll(".card").forEach((c, i) => reveal(c, (i % 3) * 120));
   }).observe(grid, { childList: true });
