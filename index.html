@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  /* Apply the saved theme (or the device setting) before the page paints */
+  try {
+    var t = localStorage.getItem("theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", t);
+  } catch (e) {}
+</script>
 <title>Orlin | Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,11 +22,36 @@
     --mocha: #8a6a58;       /* secondary text */
     --chocolate: #4a3228;   /* headings, buttons */
     --cocoa: #33221b;       /* dark sections */
-    --white: #fbf7f2;
+    --white: #fbf7f2;       /* cards and pop-ups */
+    --cream: #fbf7f2;       /* text on the dark contact section */
+    --header-bg: rgba(242,233,223,.94);
+    --about-bg: rgba(231,216,200,.6);
+    --g1: #f2e9df; --g2: #f8e5d9; --g3: #eadbc9; --g4: #f5e3df;
+    --orb1: #e8c9b5; --orb2: #f3d6d0; --orb3: #d9c3a8;
+    --grain-op: .09; --grain-blend: multiply;
+    --c1: #33221b; --c2: #4a3228; --c3: #3b2820;
+    color-scheme: light;
+  }
+  /* Dark mode: same variables, darker values */
+  :root[data-theme="dark"] {
+    --beige: #18110e;
+    --sand: #261b16;
+    --nude: #b8977f;
+    --mocha: #cdb3a1;
+    --chocolate: #f2e9df;
+    --cocoa: #0f0907;
+    --white: #241a15;
+    --header-bg: rgba(24,17,14,.92);
+    --about-bg: rgba(38,27,22,.6);
+    --g1: #18110e; --g2: #241712; --g3: #1b1310; --g4: #2a1a17;
+    --orb1: #5a3a2a; --orb2: #4a2d33; --orb3: #3d3326;
+    --grain-op: .06; --grain-blend: screen;
+    --c1: #0f0907; --c2: #1f1512; --c3: #150e0b;
+    color-scheme: dark;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-  body { font-family: "Jost", system-ui, sans-serif; font-weight: 400; background: var(--beige); color: var(--chocolate); line-height: 1.7; overflow-wrap: break-word; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--beige); }
+  body { font-family: "Jost", system-ui, sans-serif; font-weight: 400; background: transparent; color: var(--chocolate); line-height: 1.7; overflow-wrap: break-word; }
   img { max-width: 100%; }
   h1, h2, h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; line-height: 1.1; }
   a { color: inherit; }
@@ -32,7 +64,7 @@
   .center .lead { margin-left: auto; margin-right: auto; }
 
   /* Nav */
-  header { position: sticky; top: 0; z-index: 10; background: rgba(242,233,223,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--sand); }
+  header { position: sticky; top: 0; z-index: 10; background: var(--header-bg); backdrop-filter: blur(8px); border-bottom: 1px solid var(--sand); }
   nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
   .logo { font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 1.7rem; text-decoration: none; flex-shrink: 0; }
   nav ul { display: flex; gap: 30px; list-style: none; }
@@ -41,7 +73,7 @@
   /* Hero: arch-shaped photo */
   .hero { padding: 72px 0 104px; }
   .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center; }
-  .hero h1 { font-size: clamp(3.6rem, 10vw, 7.4rem); font-style: italic; font-weight: 500; letter-spacing: -0.01em; }
+  .hero h1 { font-size: clamp(3.2rem, 8vw, 6rem); font-style: italic; font-weight: 500; letter-spacing: -0.01em; }
   .hero .full { font-size: 1.05rem; color: var(--mocha); margin: 10px 0 22px; font-weight: 300; }
   .hero p { max-width: 44ch; color: var(--chocolate); margin-bottom: 34px; }
   .btn { display: inline-block; padding: 13px 32px; border-radius: 999px; background: var(--chocolate); color: var(--white); text-decoration: none; border: 1.5px solid var(--chocolate); font-weight: 400; transition: background .2s, color .2s; text-align: center; }
@@ -52,7 +84,7 @@
   .arch img { position: relative; display: block; width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover; border-radius: 999px 999px 14px 14px; background: var(--sand); }
 
   /* About */
-  .about { background: var(--sand); }
+  .about { background: var(--about-bg); }
   .about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start; }
   .skills { background: var(--white); border-radius: 22px; padding: 32px 34px; }
   .skills dt { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.5rem; font-weight: 600; margin-top: 18px; }
@@ -74,7 +106,9 @@
   .filters button { font: inherit; font-weight: 400; padding: 8px 24px; border-radius: 999px; border: 1.5px solid var(--nude); background: transparent; color: var(--chocolate); cursor: pointer; transition: background .2s; }
   .filters button[aria-pressed="true"] { background: var(--chocolate); border-color: var(--chocolate); color: var(--white); }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 36px 28px; }
-  .card { background: none; border: none; text-align: center; font: inherit; color: inherit; cursor: pointer; padding: 0; min-width: 0; }
+  .card { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; background: none; border: none; text-align: center; font: inherit; color: inherit; cursor: pointer; padding: 0; min-width: 0; height: 100%; }
+  .card .frame { flex-shrink: 0; width: 100%; }
+  .card-body { flex: 1; }
   .card .frame { overflow: hidden; border-radius: 999px 999px 16px 16px; border: 1.5px solid var(--nude); padding: 8px; transition: background .25s; }
   .card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; border-radius: 999px 999px 10px 10px; background: var(--sand); }
 
@@ -86,7 +120,7 @@
   .card h3 { font-size: 1.7rem; margin-bottom: 4px; }
   .role { color: var(--mocha); font-size: .98rem; }
   .date { color: var(--mocha); font-size: .9rem; font-weight: 300; margin-bottom: 8px; }
-  .card .sum { font-size: .95rem; font-weight: 300; }
+  .card .sum { font-size: .95rem; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .empty { color: var(--mocha); grid-column: 1 / -1; text-align: center; }
 
   /* Modal (pop-up windows) */
@@ -118,7 +152,7 @@
   .roles span { color: var(--mocha); font-weight: 300; white-space: nowrap; }
 
   /* Contact */
-  .contact { background: var(--cocoa); color: var(--white); }
+  .contact { background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3), var(--c1)); background-size: 300% 300%; animation: bgShift 18s ease-in-out infinite; color: var(--cream); }
   .contact .lead { color: var(--nude); }
   .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
   .contact .btn { background: var(--nude); border-color: var(--nude); color: var(--cocoa); }
@@ -141,8 +175,74 @@
     .filters button:hover { background: var(--sand); }
     .filters button[aria-pressed="true"]:hover { background: var(--chocolate); }
     .card:hover .frame { background: var(--nude); }
-    .contact .btn:hover { background: var(--white); border-color: var(--white); }
+    .contact .btn:hover { background: var(--cream); border-color: var(--cream); }
   }
+
+  /* ===== Hero animations ===== */
+  .hero { position: relative; overflow: hidden; }
+  .hero .wrap { position: relative; z-index: 1; }
+
+  .blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .55; z-index: 0; animation: drift 14s ease-in-out infinite alternate; }
+  .blob.b1 { width: 380px; height: 380px; background: var(--nude); top: -90px; right: -70px; }
+  .blob.b2 { width: 300px; height: 300px; background: var(--sand); bottom: -90px; left: -60px; animation-delay: -6s; }
+  @keyframes drift { to { transform: translate(40px, 30px) scale(1.15); } }
+
+  .badge { display: inline-flex; align-items: center; gap: 10px; padding: 6px 16px; margin-bottom: 20px; border: 1.5px solid var(--nude); border-radius: 999px; background: var(--white); font-size: .9rem; animation: fadeUp .8s both; }
+  .dot { position: relative; width: 9px; height: 9px; border-radius: 50%; background: #5fa36b; }
+  .dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #5fa36b; animation: pulse 1.8s ease-out infinite; }
+  @keyframes pulse { to { transform: scale(3.2); opacity: 0; } }
+
+  .word { display: inline-block; white-space: nowrap; }
+  .ch { display: inline-block; opacity: 0; transform: translateY(40px) rotate(4deg); animation: rise .7s cubic-bezier(.2,.8,.2,1) forwards; animation-delay: calc(var(--i) * 55ms + 250ms); }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  .arch img { animation: archIn 1.2s cubic-bezier(.2,.8,.2,1) .3s both, float 6s ease-in-out 1.6s infinite; }
+  @keyframes archIn { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
+  @keyframes float { 50% { transform: translateY(-12px); } }
+
+  .float-tag { position: absolute; padding: 8px 16px; background: var(--white); border: 1.5px solid var(--nude); border-radius: 999px; font-size: .85rem; white-space: nowrap; box-shadow: 0 10px 24px rgba(74,50,40,.12); opacity: 0; animation: fadeUp .8s 1.4s forwards, bob 5s ease-in-out 2.2s infinite; }
+  .float-tag.t1 { top: 10%; left: -22%; }
+  .float-tag.t2 { bottom: 12%; right: -14%; animation-delay: 1.7s, 2.6s; }
+  @keyframes bob { 50% { transform: translateY(-9px); } }
+
+  /* Waving emoji after "About me" */
+  .wave { display: inline-block; font-style: normal; transform-origin: 50% 50%; animation: bloom 6s ease-in-out infinite; }
+  @keyframes bloom {
+    0%   { transform: rotate(0deg) scale(1); }
+    50%  { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+
+  /* Flexible button row: one line on laptop, wraps on tablet, stacks on phone */
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-actions .btn, .hero-actions .btn.ghost { margin: 0; white-space: nowrap; flex: 0 1 auto; }
+
+  /* Animated background: slowly shifting colors, floating orbs, soft grain texture */
+  @keyframes bgShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+  .bg-fx { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: linear-gradient(120deg, var(--g1), var(--g2), var(--g3), var(--g4), var(--g1)); background-size: 300% 300%; animation: bgShift 24s ease-in-out infinite; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .5; animation: orbMove 20s ease-in-out infinite alternate; }
+  .orb.o1 { width: 420px; height: 420px; background: var(--orb1); top: 8%; left: -8%; }
+  .orb.o2 { width: 360px; height: 360px; background: var(--orb2); top: 50%; right: -6%; animation-duration: 26s; animation-delay: -8s; }
+  .orb.o3 { width: 320px; height: 320px; background: var(--orb3); bottom: -6%; left: 30%; animation-duration: 30s; animation-delay: -14s; }
+  @keyframes orbMove { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(60px, -50px) scale(1.2); } }
+  .grain { position: fixed; inset: 0; z-index: 9; pointer-events: none; opacity: var(--grain-op); mix-blend-mode: var(--grain-blend); background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .29 0 0 0 0 .2 0 0 0 0 .16 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+  /* Dark mode toggle */
+  .theme-toggle { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--nude); background: transparent; color: var(--chocolate); font-size: 1.1rem; line-height: 1; cursor: pointer; display: grid; place-items: center; transition: background .2s, transform .3s; }
+  .theme-toggle:active { transform: rotate(20deg) scale(.92); }
+  @media (hover: hover) { .theme-toggle:hover { background: var(--sand); } }
+  .theme-wrap { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .theme-label { font-size: .85rem; color: var(--mocha); min-width: 2.6em; text-align: right; }
+  @media (max-width: 400px) { .theme-label { display: none; } }
+  header, .about, .skills, .skill-card, .badge, .float-tag, .chip, dialog { transition: background-color .4s ease, color .4s ease, border-color .4s ease; }
+  nav > ul { margin-left: auto; margin-right: 18px; }
+
+  /* Full-size picture viewer */
+  .gallery img { cursor: zoom-in; }
+  #lightbox { width: 100%; max-width: none; height: 100%; max-height: none; border-radius: 0; background: rgba(51,34,27,.94); overflow: hidden; }
+  #lightbox[open] { display: flex; align-items: center; justify-content: center; }
+  #lightbox img { max-width: 94vw; max-height: 88vh; max-height: 88dvh; width: auto; height: auto; object-fit: contain; border-radius: 12px; cursor: zoom-out; }
 
   /* Tablet and phone */
   @media (max-width: 760px) {
@@ -155,8 +255,12 @@
     .arch { order: -1; width: min(70%, 260px); }
     .hero p { margin-left: auto; margin-right: auto; }
     .hero .typed { font-size: 1.35rem; min-height: 3.4rem; }
-    .hero .btn { display: block; width: 100%; max-width: 320px; margin: 0 auto 12px; }
-    .hero .btn.ghost { margin: 0 auto; }
+    .hero-actions { flex-direction: column; align-items: center; }
+    .hero-actions .btn { width: 100%; max-width: 320px; }
+
+    .float-tag.t1 { left: -4%; top: 4%; }
+    .float-tag.t2 { right: -4%; }
+    .float-tag { font-size: .75rem; padding: 6px 12px; }
 
     .skills { padding: 26px 24px; }
     .skill-card { padding: 24px 22px; }
@@ -193,17 +297,22 @@
     html { scroll-behavior: auto; }
     .btn, .card .frame, .filters button { transition: none; }
     .cursor { animation: none; }
+    .blob, .dot::after, .arch img, .badge, .wave, .bg-fx, .orb, .contact { animation: none; }
+    .float-tag { animation: none; opacity: 1; }
+    .ch { opacity: 1; transform: none; animation: none; }
   }
 </style>
 </head>
 <body>
 
+<div class="bg-fx" aria-hidden="true"><i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i></div>
+<div class="grain" aria-hidden="true"></div>
 <div id="progress"></div>
 
 <header>
   <div class="wrap">
     <nav aria-label="Main">
-      <a class="logo" href="#top">My Portfolio</a>
+      <a class="logo" href="#top">Portfolio</a>
       <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
@@ -211,6 +320,10 @@
         <li><a href="#events">Events</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <div class="theme-wrap">
+        <span class="theme-label" id="themeLabel" aria-live="polite">Light</span>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">🌙</button>
+      </div>
     </nav>
   </div>
 </header>
@@ -218,9 +331,12 @@
 <main id="top">
   <!-- HERO -->
   <section class="hero">
+    <span class="blob b1" aria-hidden="true"></span>
+    <span class="blob b2" aria-hidden="true"></span>
     <div class="wrap hero-grid">
       <div>
-        <h1 style="font-size: 60px;">Hi, I' m Orlin !</h1>
+        <span class="badge"><i class="dot"></i> Open to internship</span>
+        <h1 id="heroTitle" aria-label="Hi, I'm Orlin!">Hi, I'm Orlin!</h1>
         <p class="full">Wan Orlin Balqis binti Wan Sapiansori</p>
         <p class="typed"><span id="typed"></span><span class="cursor">|</span></p>
 
@@ -231,12 +347,17 @@
           learning new skills and taking on new challenges.
         </p>
 
-        <a class="btn" href="#events">View my events</a>
-        <a class="btn ghost" href="#contact">Contact me</a>
+        <div class="hero-actions">
+          <a class="btn" href="#projects">View my projects</a>
+          <a class="btn ghost" href="https://drive.google.com/file/d/1fejkg8uY56N-w5jzAefV9bw_FfKBlsJc/view?usp=sharing" target="_blank" rel="noopener">Download CV</a>
+          <a class="btn ghost" href="#contact">Contact me</a>
+        </div>
       </div>
 
       <div class="arch">
         <img src="images/profile.png" alt="Portrait of Orlin" width="400" height="500">
+        <span class="float-tag t1">Intelligent Systems Engineering</span>
+        <span class="float-tag t2">Developer + Multimedia</span>
       </div>
     </div>
   </section>
@@ -245,7 +366,7 @@
   <section id="about" class="about">
     <div class="wrap about-grid">
       <div>
-        <h2>About me</h2>
+        <h2>About me <span class="wave" aria-hidden="true">🌸</span></h2>
         <p class="lead">I study computing at UiTM Kedah and spend my time outside class on community programmes. At SULAM events I guide school students through hands-on technology, and in student clubs I lead multimedia work from posters to social media.</p>
       </div>
       <dl class="skills">
@@ -408,6 +529,12 @@
   </div>
 </dialog>
 
+<!-- Full-size picture viewer -->
+<dialog id="lightbox" aria-label="Full size picture">
+  <button class="close" id="lbClose" aria-label="Close picture">&times;</button>
+  <img id="lbImg" alt="">
+</dialog>
+
 <script>
   /* =====================================================
      ADD YOUR COURSE PROJECTS HERE
@@ -431,8 +558,8 @@
       ],
       tech: ["Python", "Random Forest", "SVM", "LightGBM", "SMOTENC", "Power BI"],
       links: [],
-      cover: "fyp-cover.jpg",
-      images: ["fyp-1.jpg", "fyp-2.jpg", "fyp-3.jpg"]
+      cover: "fyp-cover.png",
+      images: ["fyp-1.png", "fyp-2.png", "fyp-3.jpg"]
     },
     {
       title: "E2E Service Data System, SUK Kelantan",
@@ -463,7 +590,7 @@
       ],
       tech: ["Oracle APEX", "Oracle SQL", "Draw.io", "JavaScript"],
       links: [],
-      cover: "halffull-cover.jpg",
+      cover: "halffull-cover.png",
       images: ["halffull-1.jpg", "halffull-2.jpg", "halffull-3.jpg"]
     },
     {
@@ -495,7 +622,7 @@
       ],
       tech: ["RapidMiner", "TF-IDF", "Random Forest", "Naive Bayes", "Deep Learning"],
       links: [],
-      cover: "isp610-cover.jpg",
+      cover: "isp610-cover.png",
       images: ["isp610-1.jpg", "isp610-2.jpg", "isp610-3.jpg"]
     },
     {
@@ -553,7 +680,7 @@
       title: "School Attack",
       role: "Facilitator of Form 4 SMK Merbok and AJK Multimedia",
       date: "2026",
-      category: ["Facilitator", "Multimedia"],
+      category: "Facilitator",
       summary: "Taught coding basics to Form 4 students and handled the poster and photos.",
       points: [
         "Guided Form 4 students in learning coding and supported the lecturer",
@@ -658,12 +785,12 @@
 
   function render(category) {
     grid.innerHTML = "";
-    events.filter(e => category === "All" || e.category === category)
+    events.filter(e => category === "All" || [].concat(e.category).includes(category))
       .forEach(e => grid.appendChild(buildCard(e, e.images[0], false)));
   }
 
   function buildFilters() {
-    const cats = ["All", ...new Set(events.map(e => e.category))];
+    const cats = ["All", ...new Set(events.flatMap(e => e.category))];
     cats.forEach((c, i) => {
       const b = document.createElement("button");
       b.type = "button";
@@ -717,7 +844,11 @@
     const g = document.getElementById("m-gallery");
     g.innerHTML = "";
     g.classList.toggle("fit", !!isProject);
-    e.images.forEach((f, i) => g.appendChild(makeImg(f, e.title + " picture " + (i + 1))));
+    e.images.forEach((f, i) => {
+      const img = makeImg(f, e.title + " picture " + (i + 1));
+      img.addEventListener("click", () => openLightbox(img.currentSrc || img.src, img.alt));
+      g.appendChild(img);
+    });
 
     modal.showModal();
     modal.scrollTop = 0;
@@ -726,6 +857,17 @@
   /* Details window */
   document.getElementById("close").addEventListener("click", () => modal.close());
   modal.addEventListener("click", ev => { if (ev.target === modal) modal.close(); });
+
+  /* Full-size picture viewer */
+  const lightbox = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lbImg");
+  function openLightbox(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt;
+    lightbox.showModal();
+  }
+  lightbox.addEventListener("click", () => lightbox.close());
+  document.getElementById("lbClose").addEventListener("click", ev => { ev.stopPropagation(); lightbox.close(); });
 
   /* Email pop-up card */
   document.getElementById("emailBtn").addEventListener("click", ev => {
@@ -780,7 +922,7 @@
   onScroll();
 
   /* Typing effect */
-  const words = ["Hello, welcome!", "Thanks for visiting my portfolio", "Have a look around"];
+  const words = ["Open to internship opportunities", "Information Systems student at UiTM", "Facilitator · Multimedia · Developer"];
   const out = document.getElementById("typed");
   if (reduceMotion) {
     out.textContent = words[0];
@@ -795,6 +937,42 @@
       setTimeout(tick, deleting ? 40 : 80);
     })();
   }
+
+  /* Hero title: letters rise in one by one */
+  const title = document.getElementById("heroTitle");
+  if (!reduceMotion) {
+    const txt = title.textContent;
+    title.textContent = "";
+    let i = 0;
+    txt.split(" ").forEach((word, wi, arr) => {
+      const w = document.createElement("span");
+      w.className = "word";
+      [...word].forEach(ch => {
+        const s = document.createElement("span");
+        s.className = "ch";
+        s.style.setProperty("--i", i++);
+        s.textContent = ch;
+        w.appendChild(s);
+      });
+      title.appendChild(w);
+      if (wi < arr.length - 1) title.appendChild(document.createTextNode(" "));
+    });
+  }
+
+  /* Dark mode toggle */
+  const themeBtn = document.getElementById("themeToggle");
+  function applyTheme(t) {
+    document.documentElement.setAttribute("data-theme", t);
+    themeBtn.textContent = t === "dark" ? "☀️" : "🌙";
+    document.getElementById("themeLabel").textContent = t === "dark" ? "Dark" : "Light";
+    themeBtn.setAttribute("aria-label", t === "dark" ? "Switch to light mode" : "Switch to dark mode");
+  }
+  applyTheme(document.documentElement.getAttribute("data-theme") || "light");
+  themeBtn.addEventListener("click", () => {
+    const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+  });
 
   buildFilters();
   render("All");
