@@ -108,7 +108,7 @@
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 36px 28px; }
   .card { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; background: none; border: none; text-align: center; font: inherit; color: inherit; cursor: pointer; padding: 0; min-width: 0; height: 100%; }
   .card .frame { flex-shrink: 0; width: 100%; }
-  .card-body { flex: 1; }
+  .card-body { flex: 1; display: flex; flex-direction: column; align-items: center; }
   .card .frame { overflow: hidden; border-radius: 999px 999px 16px 16px; border: 1.5px solid var(--nude); padding: 8px; transition: background .25s; }
   .card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; border-radius: 999px 999px 10px 10px; background: var(--sand); }
 
@@ -120,8 +120,15 @@
   .card h3 { font-size: 1.7rem; margin-bottom: 4px; }
   .role { color: var(--mocha); font-size: .98rem; }
   .date { color: var(--mocha); font-size: .9rem; font-weight: 300; margin-bottom: 8px; }
-  .card .sum { font-size: .95rem; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .card .sum { font-size: .95rem; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 16px; }
   .empty { color: var(--mocha); grid-column: 1 / -1; text-align: center; }
+
+  /* "Click to view more" button on each card */
+  .more { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; padding: 7px 20px; border: 1.5px solid var(--nude); border-radius: 999px; font-size: .9rem; font-weight: 400; color: var(--chocolate); transition: background .2s, color .2s, border-color .2s; }
+  .more .arrow { display: inline-block; transition: transform .2s; }
+  .card:active .more { background: var(--chocolate); border-color: var(--chocolate); color: var(--white); }
+  .tip { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 36px; padding: 6px 16px; border: 1.5px dashed var(--nude); border-radius: 999px; font-size: .88rem; color: var(--mocha); }
+  .filters + .tip, #events .filters { margin-bottom: 20px; }
 
   /* Modal (pop-up windows) */
   dialog { margin: auto; border: none; border-radius: 24px; max-width: 780px; width: calc(100% - 32px); max-height: 90vh; max-height: 90dvh; padding: 0; background: var(--white); color: var(--chocolate); overflow-y: auto; overflow-x: hidden; }
@@ -175,6 +182,8 @@
     .filters button:hover { background: var(--sand); }
     .filters button[aria-pressed="true"]:hover { background: var(--chocolate); }
     .card:hover .frame { background: var(--nude); }
+    .card:hover .more { background: var(--chocolate); border-color: var(--chocolate); color: var(--white); }
+    .card:hover .more .arrow { transform: translateX(4px); }
     .contact .btn:hover { background: var(--cream); border-color: var(--cream); }
   }
 
@@ -197,10 +206,11 @@
   @keyframes rise { to { opacity: 1; transform: none; } }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
-  .arch img { animation: archIn 1.2s cubic-bezier(.2,.8,.2,1) .3s both, float 6s ease-in-out 1.6s infinite; }
+  /* Profile picture: reveals once on load, then stays still (no floating) */
+  .arch img { animation: archIn 1.2s cubic-bezier(.2,.8,.2,1) .3s both; }
   @keyframes archIn { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
-  @keyframes float { 50% { transform: translateY(-12px); } }
 
+  /* Tags fade in once, then stay still */
   .float-tag { position: absolute; padding: 8px 16px; background: var(--white); border: 1.5px solid var(--nude); border-radius: 999px; font-size: .85rem; white-space: nowrap; box-shadow: 0 10px 24px rgba(74,50,40,.12); opacity: 0; animation: fadeUp .8s 1.4s forwards, bob 5s ease-in-out 2.2s infinite; }
   .float-tag.t1 { top: 10%; left: -22%; }
   .float-tag.t2 { bottom: 12%; right: -14%; animation-delay: 1.7s, 2.6s; }
@@ -295,7 +305,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .btn, .card .frame, .filters button { transition: none; }
+    .btn, .card .frame, .filters button, .more, .more .arrow { transition: none; }
     .cursor { animation: none; }
     .blob, .dot::after, .arch img, .badge, .wave, .bg-fx, .orb, .contact { animation: none; }
     .float-tag { animation: none; opacity: 1; }
@@ -387,75 +397,81 @@
       <p class="lead">Tools and skills I use for my studies, projects and events.</p>
 
       <div class="skill-grid" id="skillGrid">
-        <div class="skill-card">
-          <h3>Technical &amp; Productivity</h3>
-          <ul class="chips">
-            <li class="chip">Microsoft Word</li>
-            <li class="chip">Microsoft Excel</li>
-            <li class="chip">Google Docs</li>
-            <li class="chip">Canva</li>
-            <li class="chip">Power BI</li>
-            <li class="chip">Oracle</li>
-          </ul>
-        </div>
+  <div class="skill-card">
+    <h3>Programming &amp; Development</h3>
+    <ul class="chips">
+      <li class="chip">Python</li>
+      <li class="chip">C++</li>
+      <li class="chip">PHP</li>
+      <li class="chip">JavaScript</li>
+      <li class="chip">Laravel</li>
+      <li class="chip">MySQL</li>
+      <li class="chip">HTML</li>
+      <li class="chip">CSS</li>
+      <li class="chip">Git</li>
+    </ul>
+  </div>
 
-        <div class="skill-card">
-          <h3>Programming &amp; Development</h3>
-          <ul class="chips">
-            <li class="chip">Python</li>
-            <li class="chip">C++</li>
-            <li class="chip">PHP</li>
-            <li class="chip">JavaScript</li>
-            <li class="chip">Laravel</li>
-            <li class="chip">MySQL</li>
-            <li class="chip">HTML</li>
-            <li class="chip">CSS</li>
-            <li class="chip">Git</li>
-            <li class="chip">Cisco</li>
-            <li class="chip">Laragon</li>
-          </ul>
-        </div>
+  <div class="skill-card">
+    <h3>AI, Cloud &amp; IoT</h3>
+    <ul class="chips">
+      <li class="chip">Gemini API</li>
+      <li class="chip">Firebase</li>
+      <li class="chip">ESP8266</li>
+      <li class="chip">ESP32</li>
+      <li class="chip">Blynk</li>
+      <li class="chip">Machine Learning</li>
+    </ul>
+  </div>
 
-        <div class="skill-card">
-          <h3>Design &amp; Multimedia</h3>
-          <ul class="chips">
-            <li class="chip">Figma</li>
-            <li class="chip">Adobe Photoshop</li>
-            <li class="chip">Adobe Premiere Pro</li>
-            <li class="chip">CapCut</li>
-          </ul>
-        </div>
+  <div class="skill-card">
+    <h3>Design &amp; Multimedia</h3>
+    <ul class="chips">
+      <li class="chip">Figma</li>
+      <li class="chip">Adobe Photoshop</li>
+      <li class="chip">Adobe Premiere Pro</li>
+      <li class="chip">CapCut</li>
+      <li class="chip">Canva</li>
+    </ul>
+  </div>
 
-        <div class="skill-card">
-          <h3>Languages</h3>
-          <ul class="chips">
-            <li class="chip">English</li>
-            <li class="chip">Malay</li>
-          </ul>
-        </div>
+  <div class="skill-card">
+    <h3>Tools &amp; Productivity</h3>
+    <ul class="chips">
+      <li class="chip">Microsoft Word</li>
+      <li class="chip">Microsoft Excel</li>
+      <li class="chip">Google Docs</li>
+      <li class="chip">Power BI</li>
+      <li class="chip">Oracle</li>
+      <li class="chip">Laragon</li>
+      <li class="chip">Cisco</li>
+    </ul>
+  </div>
 
-        <div class="skill-card">
-          <h3>Soft Skills</h3>
-          <ul class="chips">
-            <li class="chip">Self-Learning</li>
-            <li class="chip">Teamwork</li>
-            <li class="chip">Time Management</li>
-            <li class="chip">Communication</li>
-            <li class="chip">Hardworking</li>
-            <li class="chip">Problem-Solving</li>
-          </ul>
-        </div>
+  <div class="skill-card">
+    <h3>Soft Skills &amp; Languages</h3>
+    <ul class="chips">
+      <li class="chip">Self-Learning</li>
+      <li class="chip">Teamwork</li>
+      <li class="chip">Time Management</li>
+      <li class="chip">Communication</li>
+      <li class="chip">Hardworking</li>
+      <li class="chip">Problem-Solving</li>
+      <li class="chip">English <small>language</small></li>
+      <li class="chip">Malay <small>language</small></li>
+    </ul>
+  </div>
 
-        <div class="skill-card">
-          <h3>Activities &amp; Involvement</h3>
-          <p>Active as a committee member and volunteer, contributing across logistics, publicity and event operations.</p>
-          <ul class="chips">
-            <li class="chip">Logistics</li>
-            <li class="chip">Publicity</li>
-            <li class="chip">Event Operations</li>
-          </ul>
-        </div>
-      </div>
+  <div class="skill-card">
+    <h3>Activities &amp; Involvement</h3>
+    <p>Active as a committee member and volunteer, contributing across logistics, publicity and event operations.</p>
+    <ul class="chips">
+      <li class="chip">Logistics</li>
+      <li class="chip">Publicity</li>
+      <li class="chip">Event Operations</li>
+    </ul>
+  </div>
+</div>
     </div>
   </section>
 
@@ -463,7 +479,8 @@
   <section id="projects" class="about">
     <div class="wrap center">
       <h2>Course projects</h2>
-      <p class="lead">Projects I built for my subjects at UiTM. Select one to see the details and pictures.</p>
+      <p class="lead">Projects I built for my subjects at UiTM.</p>
+      <p class="tip">👆 Tip: click any project card to see the full details, tools used and pictures.</p>
       <div class="grid" id="projectGrid"></div>
     </div>
   </section>
@@ -472,8 +489,9 @@
   <section id="events">
     <div class="wrap center">
       <h2>Events I joined</h2>
-      <p class="lead">Select an event to see what I did and the photos.</p>
+      <p class="lead">Programmes and clubs I have been part of.</p>
       <div class="filters" id="filters" role="group" aria-label="Filter events"></div>
+      <p class="tip">👆 Tip: use the filters to sort events, then click any card to see what I did and the photos.</p>
       <div class="grid" id="grid"></div>
     </div>
   </section>
@@ -755,13 +773,14 @@
     const card = document.createElement("button");
     card.className = "card" + (isProject ? " rect" : "");
     card.type = "button";
+    card.setAttribute("aria-label", "View more about " + item.title);
     const frame = document.createElement("div");
     frame.className = "frame";
     frame.appendChild(makeImg(coverFile, item.title));
     card.appendChild(frame);
     const body = document.createElement("div");
     body.className = "card-body";
-    body.innerHTML = `<h3></h3><p class="role"></p><p class="date"></p><p class="sum"></p>`;
+    body.innerHTML = `<h3></h3><p class="role"></p><p class="date"></p><p class="sum"></p><span class="more" aria-hidden="true">Click to view more <span class="arrow">→</span></span>`;
     body.querySelector("h3").textContent = item.title;
     body.querySelector(".role").textContent = item.role;
     body.querySelector(".date").textContent = item.date;
