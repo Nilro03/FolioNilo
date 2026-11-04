@@ -148,23 +148,18 @@
   .gallery.fit img { object-fit: contain; }
   .close { position: absolute; top: 14px; right: 14px; width: 44px; height: 44px; border-radius: 50%; border: none; background: var(--chocolate); color: var(--white); font-size: 1.4rem; cursor: pointer; z-index: 1; }
 
-  /* Email pop-up card */
-  #emailCard { width: calc(100% - 32px); max-width: 420px; padding: 32px 36px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,.2); }
-  #emailCard .label { font-size: .9rem; color: var(--mocha); margin-bottom: 6px; }
-  #emailCard .address { font-size: 1.25rem; font-weight: 500; margin-bottom: 24px; word-break: break-all; }
-  #emailCard .btn.ghost { margin-left: 0; }
-
   /* Roles */
   .roles { max-width: 720px; margin: 0 auto; list-style: none; }
   .roles li { display: flex; justify-content: space-between; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--nude); }
   .roles strong { font-family: "Cormorant Garamond", serif; font-size: 1.45rem; font-weight: 600; line-height: 1.2; }
   .roles span { color: var(--mocha); font-weight: 300; white-space: nowrap; }
 
-  /* Contact */
+  /* Contact: simple icon + text links */
   .contact { background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3), var(--c1)); background-size: 300% 300%; animation: bgShift 18s ease-in-out infinite; color: var(--cream); }
   .contact .lead { color: var(--nude); }
-  .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
-  .contact .btn { background: var(--nude); border-color: var(--nude); color: var(--cocoa); }
+  .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 36px; }
+  .contact-link { display: inline-flex; align-items: center; gap: 10px; padding: 6px 2px; color: var(--cream); text-decoration: none; font-size: 1.05rem; border-bottom: 1.5px solid rgba(212,184,162,.35); transition: color .2s, border-color .2s; }
+  .contact-link svg { width: 22px; height: 22px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
   footer { text-align: center; padding: 28px; background: var(--cocoa); color: var(--nude); font-size: .9rem; font-weight: 300; border-top: 1px solid rgba(212,184,162,.25); }
 
   /* Extras */
@@ -186,7 +181,7 @@
     .card:hover .frame { background: var(--nude); }
     .card:hover .more { background: var(--chocolate); border-color: var(--chocolate); color: var(--white); }
     .card:hover .more .arrow { transform: translateX(4px); }
-    .contact .btn:hover { background: var(--cream); border-color: var(--cream); }
+    .contact-link:hover { color: var(--nude); border-bottom-color: var(--nude); }
   }
 
   /* ===== Hero animations ===== */
@@ -212,7 +207,7 @@
   .arch img { animation: archIn 1.2s cubic-bezier(.2,.8,.2,1) .3s both; }
   @keyframes archIn { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
 
-  /* Tags fade in once, then stay still */
+  /* Tags fade in, then keep bobbing */
   .float-tag { position: absolute; padding: 8px 16px; background: var(--white); border: 1.5px solid var(--nude); border-radius: 999px; font-size: .85rem; white-space: nowrap; box-shadow: 0 10px 24px rgba(74,50,40,.12); opacity: 0; animation: fadeUp .8s 1.4s forwards, bob 5s ease-in-out 2.2s infinite; }
   .float-tag.t1 { top: 10%; left: -22%; }
   .float-tag.t2 { bottom: 12%; right: -14%; animation-delay: 1.7s, 2.6s; }
@@ -293,7 +288,6 @@
 
     .modal-inner { padding: 36px 22px 28px; }
     .modal-inner h3 { font-size: 1.9rem; }
-    #emailCard { padding: 28px 22px; }
   }
 
   /* Very small phones */
@@ -302,12 +296,12 @@
     .logo { font-size: 1.1rem; }
     nav ul { gap: 12px; }
     nav ul a { font-size: .8rem; }
-    .contact .btn { width: 100%; }
+    .contact-link { font-size: 1rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .btn, .card .frame, .filters button, .more, .more .arrow { transition: none; }
+    .btn, .card .frame, .filters button, .more, .more .arrow, .contact-link { transition: none; }
     .cursor { animation: none; }
     .blob, .dot::after, .arch img, .badge, .wave, .bg-fx, .orb, .contact { animation: none; }
     .float-tag { animation: none; opacity: 1; }
@@ -399,81 +393,81 @@
       <p class="lead">Tools and skills I use for my studies, projects and events.</p>
 
       <div class="skill-grid" id="skillGrid">
-  <div class="skill-card">
-    <h3>Programming &amp; Development</h3>
-    <ul class="chips">
-      <li class="chip">Python</li>
-      <li class="chip">C++</li>
-      <li class="chip">PHP</li>
-      <li class="chip">JavaScript</li>
-      <li class="chip">Laravel</li>
-      <li class="chip">MySQL</li>
-      <li class="chip">HTML</li>
-      <li class="chip">CSS</li>
-      <li class="chip">Git</li>
-    </ul>
-  </div>
+        <div class="skill-card">
+          <h3>Programming &amp; Development</h3>
+          <ul class="chips">
+            <li class="chip">Python</li>
+            <li class="chip">C++</li>
+            <li class="chip">PHP</li>
+            <li class="chip">JavaScript</li>
+            <li class="chip">Laravel</li>
+            <li class="chip">MySQL</li>
+            <li class="chip">HTML</li>
+            <li class="chip">CSS</li>
+            <li class="chip">Git</li>
+          </ul>
+        </div>
 
-  <div class="skill-card">
-    <h3>AI, Cloud &amp; IoT</h3>
-    <ul class="chips">
-      <li class="chip">Gemini API</li>
-      <li class="chip">Firebase</li>
-      <li class="chip">ESP8266</li>
-      <li class="chip">ESP32</li>
-      <li class="chip">Blynk</li>
-      <li class="chip">Machine Learning</li>
-    </ul>
-  </div>
+        <div class="skill-card">
+          <h3>AI, Cloud &amp; IoT</h3>
+          <ul class="chips">
+            <li class="chip">Gemini API</li>
+            <li class="chip">Firebase</li>
+            <li class="chip">ESP8266</li>
+            <li class="chip">ESP32</li>
+            <li class="chip">Blynk</li>
+            <li class="chip">Machine Learning</li>
+          </ul>
+        </div>
 
-  <div class="skill-card">
-    <h3>Design &amp; Multimedia</h3>
-    <ul class="chips">
-      <li class="chip">Figma</li>
-      <li class="chip">Adobe Photoshop</li>
-      <li class="chip">Adobe Premiere Pro</li>
-      <li class="chip">CapCut</li>
-      <li class="chip">Canva</li>
-    </ul>
-  </div>
+        <div class="skill-card">
+          <h3>Design &amp; Multimedia</h3>
+          <ul class="chips">
+            <li class="chip">Figma</li>
+            <li class="chip">Adobe Photoshop</li>
+            <li class="chip">Adobe Premiere Pro</li>
+            <li class="chip">CapCut</li>
+            <li class="chip">Canva</li>
+          </ul>
+        </div>
 
-  <div class="skill-card">
-    <h3>Tools &amp; Productivity</h3>
-    <ul class="chips">
-      <li class="chip">Microsoft Word</li>
-      <li class="chip">Microsoft Excel</li>
-      <li class="chip">Google Docs</li>
-      <li class="chip">Power BI</li>
-      <li class="chip">Oracle</li>
-      <li class="chip">Laragon</li>
-      <li class="chip">Cisco</li>
-    </ul>
-  </div>
+        <div class="skill-card">
+          <h3>Tools &amp; Productivity</h3>
+          <ul class="chips">
+            <li class="chip">Microsoft Word</li>
+            <li class="chip">Microsoft Excel</li>
+            <li class="chip">Google Docs</li>
+            <li class="chip">Power BI</li>
+            <li class="chip">Oracle</li>
+            <li class="chip">Laragon</li>
+            <li class="chip">Cisco</li>
+          </ul>
+        </div>
 
-  <div class="skill-card">
-    <h3>Soft Skills &amp; Languages</h3>
-    <ul class="chips">
-      <li class="chip">Self-Learning</li>
-      <li class="chip">Teamwork</li>
-      <li class="chip">Time Management</li>
-      <li class="chip">Communication</li>
-      <li class="chip">Hardworking</li>
-      <li class="chip">Problem-Solving</li>
-      <li class="chip">English <small>language</small></li>
-      <li class="chip">Malay <small>language</small></li>
-    </ul>
-  </div>
+        <div class="skill-card">
+          <h3>Soft Skills &amp; Languages</h3>
+          <ul class="chips">
+            <li class="chip">Self-Learning</li>
+            <li class="chip">Teamwork</li>
+            <li class="chip">Time Management</li>
+            <li class="chip">Communication</li>
+            <li class="chip">Hardworking</li>
+            <li class="chip">Problem-Solving</li>
+            <li class="chip">English <small>language</small></li>
+            <li class="chip">Malay <small>language</small></li>
+          </ul>
+        </div>
 
-  <div class="skill-card">
-    <h3>Activities &amp; Involvement</h3>
-    <p>Active as a committee member and volunteer, contributing across logistics, publicity and event operations.</p>
-    <ul class="chips">
-      <li class="chip">Logistics</li>
-      <li class="chip">Publicity</li>
-      <li class="chip">Event Operations</li>
-    </ul>
-  </div>
-</div>
+        <div class="skill-card">
+          <h3>Activities &amp; Involvement</h3>
+          <p>Active as a committee member and volunteer, contributing across logistics, publicity and event operations.</p>
+          <ul class="chips">
+            <li class="chip">Logistics</li>
+            <li class="chip">Publicity</li>
+            <li class="chip">Event Operations</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -518,22 +512,21 @@
       <h2>Get in touch</h2>
       <p class="lead">Open to internships, volunteering and collaborations.</p>
 
-      <div class="links">
-        <a class="btn" href="#" id="emailBtn">Email me</a>
-        <a class="btn" href="https://wa.link/2caiz3" target="_blank" rel="noopener">WhatsApp</a>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:orlinbalqis@gmail.com">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
+          orlinbalqis@gmail.com
+        </a>
+        <a class="contact-link" href="https://wa.link/2caiz3" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          WhatsApp
+        </a>
       </div>
     </div>
   </section>
 </main>
 
 <footer>&copy; <span id="year"></span> Wan Orlin Balqis</footer>
-
-<!-- Email pop-up card -->
-<dialog id="emailCard" aria-labelledby="email-label">
-  <p class="label" id="email-label">My email</p>
-  <p class="address">orlinbalqis@gmail.com</p>
-  <a class="btn ghost" href="#" id="closeCard">Close</a>
-</dialog>
 
 <!-- Details window (used by both events and projects) -->
 <dialog id="modal" aria-labelledby="m-title">
@@ -767,7 +760,6 @@
   const projectGrid = document.getElementById("projectGrid");
   const filters = document.getElementById("filters");
   const modal = document.getElementById("modal");
-  const emailCard = document.getElementById("emailCard");
 
   /* One card design for both events and projects.
      Projects get the "rect" class (rectangle frame), events keep the arch. */
@@ -889,17 +881,6 @@
   }
   lightbox.addEventListener("click", () => lightbox.close());
   document.getElementById("lbClose").addEventListener("click", ev => { ev.stopPropagation(); lightbox.close(); });
-
-  /* Email pop-up card */
-  document.getElementById("emailBtn").addEventListener("click", ev => {
-    ev.preventDefault();
-    emailCard.showModal();
-  });
-  document.getElementById("closeCard").addEventListener("click", ev => {
-    ev.preventDefault();
-    emailCard.close();
-  });
-  emailCard.addEventListener("click", ev => { if (ev.target === emailCard) emailCard.close(); });
 
   document.getElementById("year").textContent = new Date().getFullYear();
 
