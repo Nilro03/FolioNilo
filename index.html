@@ -128,6 +128,8 @@
   .more .arrow { display: inline-block; transition: transform .2s; }
   .card:active .more { background: var(--chocolate); border-color: var(--chocolate); color: var(--white); }
   .tip { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 36px; padding: 6px 16px; border: 1.5px dashed var(--nude); border-radius: 999px; font-size: .88rem; color: var(--mocha); }
+  #projects .lead { margin-bottom: 14px; }
+  #events .lead { margin-bottom: 22px; }
   .filters + .tip, #events .filters { margin-bottom: 20px; }
 
   /* Modal (pop-up windows) */
@@ -935,6 +937,8 @@
     bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + "%";
     let current = -1;
     secs.forEach((s, i) => { if (s.getBoundingClientRect().top < 120) current = i; });
+    /* At the bottom of the page, the last section (Contact) is always the active one */
+    if (window.innerHeight + h.scrollTop >= h.scrollHeight - 4) current = links.length - 1;
     links.forEach((a, i) => a.classList.toggle("active", i === current));
   }
   addEventListener("scroll", onScroll, { passive: true });
