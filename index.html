@@ -700,6 +700,55 @@
 
 
 
+  /* Mobile/app viewport fixes: keep the decorative background attached to the
+     viewport and make the details dialog fit and scroll cleanly on phones. */
+  @media (max-width: 760px) {
+    body { isolation: isolate; }
+
+    .bg-fx {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      will-change: transform;
+      z-index: -1;
+    }
+
+    dialog#modal {
+      width: calc(100% - 20px);
+      max-width: none;
+      max-height: calc(100vh - 24px);
+      max-height: calc(100dvh - 24px);
+      margin: auto;
+      border-radius: 20px;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #modal .close {
+      position: sticky;
+      top: 10px;
+      float: right;
+      margin: 10px 10px -58px 0;
+    }
+
+    #modal .modal-inner {
+      padding: 68px 18px 24px;
+    }
+
+    #modal .modal-inner h3 {
+      padding-right: 0;
+      overflow-wrap: anywhere;
+    }
+
+    #modal .gallery {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
 
     html { scroll-behavior: auto; }
