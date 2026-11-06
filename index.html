@@ -251,52 +251,116 @@
   #lightbox[open] { display: flex; align-items: center; justify-content: center; }
   #lightbox img { max-width: 94vw; max-height: 88vh; max-height: 88dvh; width: auto; height: auto; object-fit: contain; border-radius: 12px; cursor: zoom-out; }
 
-  /* Tablet and phone */
+  /* Certificates: A4 portrait cards (desktop and app) */
+  .cert-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); }
+  .card.cert .frame { border-radius: 16px; }
+  .card.cert img { aspect-ratio: 210 / 297; object-fit: contain; border-radius: 10px; }
+  .card.cert h3 { font-size: 1.35rem; }
+
+  /* ===== APP / PHONE SIZES, following HCI rules =====
+     - Touch targets at least 44 x 44 px (buttons, menu links, filters, close buttons)
+     - Body text at least 16 px, small text never below 14 px
+     - At least 8 px between tappable items
+     - Next card peeks out so people see the row swipes sideways
+     - Events, Projects and Certificates stay in 2 rows to save scrolling */
   @media (max-width: 760px) {
+    body { font-size: 1rem; line-height: 1.6; }
+    .wrap { padding: 0 20px; }
     .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 48px; }
-    section { padding: 64px 0; scroll-margin-top: 60px; }
+    section { padding: 64px 0; scroll-margin-top: 68px; }
+    h2 { font-size: 2.1rem; }
+    .lead { font-size: 1rem; margin-bottom: 28px; }
+
+    /* Header: 44 px touch targets, menu scrolls sideways if it does not fit */
+    nav { height: 64px; gap: 12px; }
+    .logo { font-size: 1.3rem; white-space: nowrap; }
+    nav ul { gap: 4px; overflow-x: auto; scrollbar-width: none; min-width: 0; margin-right: 8px; }
+    nav ul::-webkit-scrollbar { display: none; }
+    nav ul a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; font-size: .95rem; white-space: nowrap; }
+    .theme-toggle { width: 44px; height: 44px; font-size: 1.2rem; }
+    .theme-label { font-size: .9rem; }
 
     /* Hero: photo on top, text centered below */
     .hero { padding: 40px 0 72px; text-align: center; }
     .hero-grid { gap: 40px; }
     .arch { order: -1; width: min(70%, 260px); }
     .hero p { margin-left: auto; margin-right: auto; }
-    .hero .typed { font-size: 1.35rem; min-height: 3.4rem; }
-    .hero-actions { flex-direction: column; align-items: center; }
-    .hero-actions .btn { width: 100%; max-width: 320px; }
-
+    .hero .full { font-size: 1rem; }
+    .hero .typed { font-size: 1.4rem; min-height: 3.6rem; }
+    .badge { font-size: .9rem; padding: 8px 16px; }
+    .float-tag { font-size: .875rem; padding: 6px 12px; white-space: normal; max-width: 62%; text-align: center; line-height: 1.3; }
     .float-tag.t1 { left: -4%; top: 4%; }
     .float-tag.t2 { right: -4%; }
-    .float-tag { font-size: .75rem; padding: 6px 12px; }
 
+    /* Buttons: at least 48 px tall, 12 px apart */
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 24px; font-size: 1rem; }
+    .btn.sm { min-height: 44px; padding: 10px 22px; font-size: .95rem; }
+    .hero-actions { flex-direction: column; align-items: center; gap: 12px; }
+    .hero-actions .btn { width: 100%; max-width: 320px; }
+
+    /* About + Skills */
     .skills { padding: 26px 24px; }
+    .skills dd { font-size: 1rem; }
     .skill-card { padding: 24px 22px; }
-    .filters { margin-bottom: 32px; }
-    .filters button { padding: 8px 18px; }
-    .card h3 { font-size: 1.55rem; }
+    .skill-card p { font-size: 1rem; }
+    .chip { font-size: .9rem; padding: 6px 14px; }
+    .chip small { font-size: .875rem; }
+
+    /* Filters and tip */
+    .filters { gap: 10px; margin-bottom: 24px; }
+    .filters button { min-height: 44px; padding: 8px 20px; font-size: 1rem; }
+    .tip { font-size: .9rem; padding: 8px 16px; margin-bottom: 24px; line-height: 1.4; text-align: left; }
+
+    /* Events, Projects, Certificates: 2 rows, swipe sideways, next card peeks */
+    #grid, #projectGrid, #certGrid {
+      grid-template-columns: none;
+      grid-template-rows: repeat(2, auto);
+      grid-auto-flow: column;
+      grid-auto-columns: 58%;
+      gap: 24px 14px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x proximity;
+      scroll-padding-left: 2px;
+      padding: 2px 2px 14px;
+      -webkit-overflow-scrolling: touch;
+    }
+    #certGrid { grid-auto-columns: 50%; }
+    #grid .card, #projectGrid .card, #certGrid .card { scroll-snap-align: start; }
+    #grid .empty, #projectGrid .empty { grid-column: auto; }
+    #grid .sum, #projectGrid .sum { display: none; }
+    .card-body { padding: 16px 4px 0; }
+    .card h3, #grid .card h3, #projectGrid .card h3, #certGrid .card h3 { font-size: 1.3rem; line-height: 1.15; }
+    .role { font-size: 1rem; line-height: 1.4; }
+    .date { font-size: .9rem; }
+    .more, #grid .more, #projectGrid .more, #certGrid .more { min-height: 44px; font-size: .9rem; padding: 8px 16px; }
 
     /* Roles stack */
     .roles li { flex-direction: column; gap: 2px; }
-    .roles span { white-space: normal; }
+    .roles strong { font-size: 1.35rem; }
+    .roles span { white-space: normal; font-size: 1rem; }
 
-    /* Tighter header, menu scrolls sideways if it does not fit */
-    nav { height: 60px; gap: 14px; }
-    .logo { font-size: 1.25rem; white-space: nowrap; }
-    nav ul { gap: 16px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
-    nav ul::-webkit-scrollbar { display: none; }
-    nav ul a { font-size: .85rem; white-space: nowrap; }
+    /* Contact links: 44 px tall */
+    .contact-link { min-height: 44px; padding: 10px 4px; font-size: 1rem; }
+    footer { font-size: .9rem; }
 
-    .modal-inner { padding: 36px 22px 28px; }
+    /* Pop-up windows */
+    .modal-inner { padding: 40px 22px 28px; }
     .modal-inner h3 { font-size: 1.9rem; }
+    .modal-inner ul, .modal-inner li { font-size: 1rem; line-height: 1.6; }
+    .modal-inner li { margin-bottom: 8px; }
+    .close { width: 48px; height: 48px; top: 10px; right: 10px; font-size: 1.5rem; }
   }
 
   /* Very small phones */
   @media (max-width: 400px) {
-    .wrap { padding: 0 18px; }
-    .logo { font-size: 1.1rem; }
-    nav ul { gap: 12px; }
-    nav ul a { font-size: .8rem; }
+    .wrap { padding: 0 16px; }
+    .logo { font-size: 1.15rem; }
+    nav { gap: 8px; }
+    nav ul a { padding: 0 8px; font-size: .9rem; }
     .contact-link { font-size: 1rem; }
+    #grid, #projectGrid { grid-auto-columns: 64%; }
+    #certGrid { grid-auto-columns: 56%; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -324,6 +388,7 @@
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#events">Events</a></li>
+        <li><a href="#certificates">Certificates</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="theme-wrap">
@@ -503,6 +568,16 @@
         <li><strong>Facilitator, SULAM Kedah Digital Festival</strong><span>2026</span></li>
         <li><strong>Facilitator and AJK Multimedia, SULAM School Attack</strong><span>2026</span></li>
       </ul>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS & CERTIFICATES (NEW) -->
+  <section id="certificates">
+    <div class="wrap center">
+      <h2>Achievements &amp; Certificates</h2>
+      <p class="lead">Awards, certificates and recognition I have received.</p>
+      <p class="tip">👆 Tip: click any certificate to view it in full size.</p>
+      <div class="grid cert-grid" id="certGrid"></div>
     </div>
   </section>
 
@@ -903,7 +978,7 @@
     el.style.transitionDelay = delay + "ms";
     io.observe(el);
   }
-  document.querySelectorAll("section .wrap > *:not(#grid):not(#projectGrid):not(#skillGrid)").forEach(el => reveal(el));
+  document.querySelectorAll("section .wrap > *:not(#grid):not(#projectGrid):not(#skillGrid):not(#certGrid)").forEach(el => reveal(el));
   document.querySelectorAll("#skillGrid .skill-card, #projectGrid .card, #projectGrid .empty").forEach((el, i) => reveal(el, (i % 3) * 120));
   new MutationObserver(() => {
     grid.querySelectorAll(".card").forEach((c, i) => reveal(c, (i % 3) * 120));
@@ -976,6 +1051,43 @@
     const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
     applyTheme(next);
     try { localStorage.setItem("theme", next); } catch (e) {}
+  });
+
+  /* =====================================================
+     ADD YOUR ACHIEVEMENTS AND CERTIFICATES HERE (NEW)
+     Put each certificate image in the "images" folder.
+     Use A4 portrait images (210 x 297) so nothing is cropped.
+     ===================================================== */
+  const certificates = [
+    { title: "International 3-minutes Business Idea Pitch and innovation Competition", issuer: "Organiser / Institution", date: "2024", image: "cert-1.png" },
+    { title: "Peer Mentoring 2.0: Return and Fly High", issuer: "Persatuan Akademik Sains Computer (SciCO)", date: "2023-2024", image: "cert-2.jpg" },
+    { title: "Achievement name",   issuer: "Organiser / Institution", date: "2025", image: "cert-3.png" },
+    { title: "Watikah Pelantikan EXCO AKADEMIK",   issuer: "Himpunan Siswazah Anak-anak Kelantan (HIMSAK)", date: "2023-2024", image: "cert-4.jpeg" }
+  ];
+
+  const certGrid = document.getElementById("certGrid");
+  certificates.forEach(c => {
+    const card = document.createElement("button");
+    card.className = "card cert";
+    card.type = "button";
+    card.setAttribute("aria-label", "View certificate: " + c.title);
+
+    const frame = document.createElement("div");
+    frame.className = "frame";
+    const img = makeImg(c.image, c.title + " certificate");
+    frame.appendChild(img);
+    card.appendChild(frame);
+
+    const body = document.createElement("div");
+    body.className = "card-body";
+    body.innerHTML = `<h3></h3><p class="role"></p><p class="date"></p><span class="more" aria-hidden="true">View <span class="arrow">→</span></span>`;
+    body.querySelector("h3").textContent = c.title;
+    body.querySelector(".role").textContent = c.issuer;
+    body.querySelector(".date").textContent = c.date;
+    card.appendChild(body);
+
+    card.addEventListener("click", () => openLightbox(img.currentSrc || img.src, img.alt));
+    certGrid.appendChild(card);
   });
 
   buildFilters();
