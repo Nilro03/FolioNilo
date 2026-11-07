@@ -1,629 +1,335 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <script>
-
   /* Apply the saved theme (or the device setting) before the page paints */
-
   try {
-
     var t = localStorage.getItem("theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-
     document.documentElement.setAttribute("data-theme", t);
-
   } catch (e) {}
-
 </script>
-
 <title>Orlin | Portfolio</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-
 <style>
-
   :root {
-
     --beige: #f2e9df;       /* page background */
-
     --sand: #e7d8c8;        /* soft panels */
-
     --nude: #d4b8a2;        /* accents, frames */
-
     --mocha: #8a6a58;       /* secondary text */
-
     --chocolate: #4a3228;   /* headings, buttons */
-
     --cocoa: #33221b;       /* dark sections */
-
     --white: #fbf7f2;       /* cards and pop-ups */
-
     --cream: #fbf7f2;       /* text on the dark contact section */
-
     --header-bg: rgba(242,233,223,.94);
-
     --about-bg: rgba(231,216,200,.6);
-
     --g1: #f2e9df; --g2: #f8e5d9; --g3: #eadbc9; --g4: #f5e3df;
-
     --orb1: #e8c9b5; --orb2: #f3d6d0; --orb3: #d9c3a8;
-
     --grain-op: .09; --grain-blend: multiply;
-
     --c1: #33221b; --c2: #4a3228; --c3: #3b2820;
-
     color-scheme: light;
-
   }
-
   /* Dark mode: same variables, darker values */
-
   :root[data-theme="dark"] {
-
     --beige: #18110e;
-
     --sand: #261b16;
-
     --nude: #b8977f;
-
     --mocha: #cdb3a1;
-
     --chocolate: #f2e9df;
-
     --cocoa: #0f0907;
-
     --white: #241a15;
-
     --header-bg: rgba(24,17,14,.92);
-
     --about-bg: rgba(38,27,22,.6);
-
     --g1: #18110e; --g2: #241712; --g3: #1b1310; --g4: #2a1a17;
-
     --orb1: #5a3a2a; --orb2: #4a2d33; --orb3: #3d3326;
-
     --grain-op: .06; --grain-blend: screen;
-
     --c1: #0f0907; --c2: #1f1512; --c3: #150e0b;
-
     color-scheme: dark;
-
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--beige); }
-
   body { font-family: "Jost", system-ui, sans-serif; font-weight: 400; background: transparent; color: var(--chocolate); line-height: 1.7; overflow-wrap: break-word; }
-
   img { max-width: 100%; }
-
   h1, h2, h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; line-height: 1.1; }
-
   a { color: inherit; }
-
   :focus-visible { outline: 2px solid var(--chocolate); outline-offset: 4px; }
-
   .wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
-
   section { padding: 96px 0; scroll-margin-top: 70px; }
-
   h2 { font-size: clamp(2.2rem, 5vw, 3.2rem); font-style: italic; margin-bottom: 14px; }
-
   .lead { color: var(--mocha); max-width: 56ch; margin-bottom: 36px; font-weight: 300; font-size: 1.05rem; }
-
   .center { text-align: center; }
-
   .center .lead { margin-left: auto; margin-right: auto; }
 
-
-
   /* Nav */
-
   header { position: sticky; top: 0; z-index: 10; background: var(--header-bg); backdrop-filter: blur(8px); border-bottom: 1px solid var(--sand); }
-
   nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
-
   .logo { font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 600; font-size: 1.7rem; text-decoration: none; flex-shrink: 0; }
-
   nav ul { display: flex; gap: 30px; list-style: none; }
-
   nav ul a { text-decoration: none; color: var(--mocha); font-size: .98rem; }
-  .menu-toggle { display:none; width:46px; height:46px; border:1.5px solid var(--nude); border-radius:50%; background:transparent; color:var(--chocolate); cursor:pointer; align-items:center; justify-content:center; flex-direction:column; gap:5px; flex-shrink:0; }
-  .menu-toggle span { display:block; width:19px; height:2px; border-radius:2px; background:currentColor; transition:transform .2s ease, opacity .2s ease; }
-  .menu-toggle[aria-expanded="true"] span:first-child { transform:translateY(7px) rotate(45deg); }
-  .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity:0; }
-  .menu-toggle[aria-expanded="true"] span:last-child { transform:translateY(-7px) rotate(-45deg); }
-
-
+  .menu-toggle { display: none; width: 46px; height: 46px; border: 1.5px solid var(--nude); border-radius: 50%; background: transparent; color: var(--chocolate); cursor: pointer; align-items: center; justify-content: center; flex-direction: column; gap: 5px; flex-shrink: 0; }
+  .menu-toggle span { display: block; width: 19px; height: 2px; border-radius: 2px; background: currentColor; transition: transform .2s ease, opacity .2s ease; }
+  .menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(7px) rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .menu-toggle[aria-expanded="true"] span:last-child { transform: translateY(-7px) rotate(-45deg); }
 
   /* Hero: arch-shaped photo */
-
   .hero { padding: 72px 0 104px; }
-
   .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center; }
-
   .hero h1 { font-size: clamp(3.2rem, 8vw, 6rem); font-style: italic; font-weight: 500; letter-spacing: -0.01em; }
-
   .hero .full { font-size: 1.05rem; color: var(--mocha); margin: 10px 0 22px; font-weight: 300; }
-
   .hero p { max-width: 44ch; color: var(--chocolate); margin-bottom: 34px; }
-
-  .btn { display: inline-block; padding: 13px 32px; border-radius: 999px; background: var(--chocolate); color: var(--white); text-decoration: none; border: 1.5px solid var(--chocolate); font-weight: 400; transition: *background* .2s, color .2s; text-align: center; }
-
+  .btn { display: inline-block; padding: 13px 32px; border-radius: 999px; background: var(--chocolate); color: var(--white); text-decoration: none; border: 1.5px solid var(--chocolate); font-weight: 400; transition: background .2s, color .2s; text-align: center; }
   .btn.ghost { background: transparent; color: var(--chocolate); margin-left: 10px; }
-
   .btn.sm { padding: 7px 22px; font-size: .9rem; }
-
   .arch { position: relative; justify-self: center; width: min(100%, 360px); }
-
   .arch::before { content: ""; position: absolute; inset: -14px; border: 1.5px solid var(--nude); border-radius: 999px 999px 18px 18px; }
-
   .arch img { position: relative; display: block; width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover; border-radius: 999px 999px 14px 14px; background: var(--sand); }
 
-
-
   /* About */
-
   .about { background: var(--about-bg); }
-
   .about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start; }
-
   .skills { background: var(--white); border-radius: 22px; padding: 32px 34px; }
-
   .skills dt { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.5rem; font-weight: 600; margin-top: 18px; }
-
   .skills dt:first-child { margin-top: 0; }
-
   .skills dd { color: var(--mocha); font-weight: 300; }
 
-
-
   /* Skills section */
-
   .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px; text-align: left; }
-
   .skill-card { background: var(--white); border-radius: 22px; padding: 28px 28px 30px; min-width: 0; }
-
   .skill-card.wide { grid-column: 1 / -1; }
-
   .skill-card h3 { font-size: 1.6rem; font-style: italic; margin-bottom: 16px; }
-
   .skill-card p { color: var(--mocha); font-weight: 300; margin-bottom: 16px; }
-
   .chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
-
   .chip { padding: 5px 14px; border: 1.5px solid var(--nude); border-radius: 999px; font-size: .92rem; line-height: 1.5; }
-
   .chip small { color: var(--mocha); font-weight: 300; font-size: .8rem; margin-left: 4px; }
 
-
-
   /* Events + course projects (same card style) */
-
   .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 44px; }
-
-  .filters button { font: inherit; font-weight: 400; padding: 8px 24px; border-radius: 999px; border: 1.5px solid var(--nude); background: transparent; color: var(--chocolate); cursor: pointer; transition: *background* .2s; }
-
+  .filters button { font: inherit; font-weight: 400; padding: 8px 24px; border-radius: 999px; border: 1.5px solid var(--nude); background: transparent; color: var(--chocolate); cursor: pointer; transition: background .2s; }
   .filters button[aria-pressed="true"] { background: var(--chocolate); border-color: var(--chocolate); color: var(--white); }
-
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 36px 28px; }
-
   .card { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; background: none; border: none; text-align: center; font: inherit; color: inherit; cursor: pointer; padding: 0; min-width: 0; height: 100%; }
-
   .card .frame { flex-shrink: 0; width: 100%; }
-
   .card-body { flex: 1; display: flex; flex-direction: column; align-items: center; }
-
-  .card .frame { overflow: hidden; border-radius: 999px 999px 16px 16px; border: 1.5px solid var(--nude); padding: 8px; transition: *background* .25s; }
-
+  .card .frame { overflow: hidden; border-radius: 999px 999px 16px 16px; border: 1.5px solid var(--nude); padding: 8px; transition: background .25s; }
   .card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; border-radius: 999px 999px 10px 10px; background: var(--sand); }
 
-
-
   /* Course projects: rectangle frame instead of arch */
-
   .card.rect .frame { border-radius: 16px; }
-
   .card.rect img { aspect-ratio: 4/3; border-radius: 10px; }
 
-
-
   .card-body { padding: 20px 8px 0; }
-
   .card h3 { font-size: 1.7rem; margin-bottom: 4px; }
-
   .role { color: var(--mocha); font-size: .98rem; }
-
   .date { color: var(--mocha); font-size: .9rem; font-weight: 300; margin-bottom: 8px; }
-
   .card .sum { font-size: .95rem; font-weight: 300; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 16px; }
-
   .empty { color: var(--mocha); grid-column: 1 / -1; text-align: center; }
 
-
-
   /* "Click to view more" button on each card */
-
-  .more { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; padding: 7px 20px; border: 1.5px solid var(--nude); border-radius: 999px; font-size: .9rem; font-weight: 400; color: var(--chocolate); transition: *background* .2s, color .2s, border-color .2s; }
-
+  .more { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; padding: 7px 20px; border: 1.5px solid var(--nude); border-radius: 999px; font-size: .9rem; font-weight: 400; color: var(--chocolate); transition: background .2s, color .2s, border-color .2s; }
   .more .arrow { display: inline-block; transition: transform .2s; }
-
   .card:active .more { background: var(--chocolate); border-color: var(--chocolate); color: var(--white); }
-
   .tip { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 36px; padding: 6px 16px; border: 1.5px dashed var(--nude); border-radius: 999px; font-size: .88rem; color: var(--mocha); }
-
   #projects .lead { margin-bottom: 14px; }
-
   #events .lead { margin-bottom: 22px; }
-
   .filters + .tip, #events .filters { margin-bottom: 20px; }
 
-
-
   /* Modal (pop-up windows) */
-
   dialog { margin: auto; border: none; border-radius: 24px; max-width: 780px; width: calc(100% - 32px); max-height: 90vh; max-height: 90dvh; padding: 0; background: var(--white); color: var(--chocolate); overflow-y: auto; overflow-x: hidden; }
-
   dialog::backdrop { background: rgba(51,34,27,.6); }
-
   .modal-inner { padding: 40px 36px 36px; }
-
   .modal-inner h3 { font-size: 2.4rem; font-style: italic; padding-right: 36px; }
-
   .modal-inner ul { margin: 18px 0 24px 20px; color: var(--mocha); font-weight: 300; }
-
   .modal-inner li { margin-bottom: 6px; }
-
   .modal-inner ul.chips { margin: 0 0 22px; color: var(--chocolate); font-weight: 400; }
-
   .modal-inner ul.chips li { margin-bottom: 0; }
-
   .plinks { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
-
   .plinks .btn.ghost { margin-left: 0; }
-
   .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 14px; }
-
   .gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 14px; background: var(--sand); }
-
   .gallery.fit img { object-fit: contain; }
-
   .close { position: absolute; top: 14px; right: 14px; width: 44px; height: 44px; border-radius: 50%; border: none; background: var(--chocolate); color: var(--white); font-size: 1.4rem; cursor: pointer; z-index: 1; }
 
-
-
   /* Roles */
-
   .roles { max-width: 720px; margin: 0 auto; list-style: none; }
-
   .roles li { display: flex; justify-content: space-between; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--nude); }
-
   .roles strong { font-family: "Cormorant Garamond", serif; font-size: 1.45rem; font-weight: 600; line-height: 1.2; }
-
   .roles span { color: var(--mocha); font-weight: 300; white-space: nowrap; }
 
-
-
   /* Contact: simple icon + text links */
-
   .contact { background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3), var(--c1)); background-size: 300% 300%; animation: bgShift 18s ease-in-out infinite; color: var(--cream); }
-
   .contact .lead { color: var(--nude); }
-
   .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 36px; }
-
   .contact-link { display: inline-flex; align-items: center; gap: 10px; padding: 6px 2px; color: var(--cream); text-decoration: none; font-size: 1.05rem; border-bottom: 1.5px solid rgba(212,184,162,.35); transition: color .2s, border-color .2s; }
-
   .contact-link svg { width: 22px; height: 22px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-
   footer { text-align: center; padding: 28px; background: var(--cocoa); color: var(--nude); font-size: .9rem; font-weight: 300; border-top: 1px solid rgba(212,184,162,.25); }
 
-
-
   /* Extras */
-
   #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--nude); z-index: 20; }
-
   .hero .typed { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 1.6rem; color: var(--mocha); margin-bottom: 18px; min-height: 2rem; line-height: 1.3; }
-
   .cursor { margin-left: 2px; animation: blink 1s steps(1) infinite; }
-
   @keyframes blink { 50% { opacity: 0; } }
-
   .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s ease; }
-
   .reveal.show { opacity: 1; transform: none; }
-
   nav ul a.active { color: var(--chocolate); text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--nude); }
 
-
-
   /* Hover effects only on devices that can hover (stops "sticky" hover on phones) */
-
   @media (hover: hover) {
-
     nav ul a:hover { color: var(--chocolate); text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--nude); }
-
     .btn:hover { background: var(--nude); border-color: var(--nude); color: var(--cocoa); }
-
     .btn.ghost:hover { background: var(--chocolate); border-color: var(--chocolate); color: var(--white); }
-
     .filters button:hover { background: var(--sand); }
-
     .filters button[aria-pressed="true"]:hover { background: var(--chocolate); }
-
     .card:hover .frame { background: var(--nude); }
-
     .card:hover .more { background: var(--chocolate); border-color: var(--chocolate); color: var(--white); }
-
     .card:hover .more .arrow { transform: translateX(4px); }
-
     .contact-link:hover { color: var(--nude); border-bottom-color: var(--nude); }
-
   }
-
-
 
   /* ===== Hero animations ===== */
-
   .hero { position: relative; overflow: hidden; }
-
   .hero .wrap { position: relative; z-index: 1; }
 
-
-
   .blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .55; z-index: 0; animation: drift 14s ease-in-out infinite alternate; }
-
   .blob.b1 { width: 380px; height: 380px; background: var(--nude); top: -90px; right: -70px; }
-
   .blob.b2 { width: 300px; height: 300px; background: var(--sand); bottom: -90px; left: -60px; animation-delay: -6s; }
-
   @keyframes drift { to { transform: translate(40px, 30px) scale(1.15); } }
 
-
-
   .badge { display: inline-flex; align-items: center; gap: 10px; padding: 6px 16px; margin-bottom: 20px; border: 1.5px solid var(--nude); border-radius: 999px; background: var(--white); font-size: .9rem; animation: fadeUp .8s both; }
-
   .dot { position: relative; width: 9px; height: 9px; border-radius: 50%; background: #5fa36b; }
-
   .dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #5fa36b; animation: pulse 1.8s ease-out infinite; }
-
   @keyframes pulse { to { transform: scale(3.2); opacity: 0; } }
 
-
-
   .word { display: inline-block; white-space: nowrap; }
-
   .ch { display: inline-block; opacity: 0; transform: translateY(40px) rotate(4deg); animation: rise .7s cubic-bezier(.2,.8,.2,1) forwards; animation-delay: calc(var(--i) * 55ms + 250ms); }
-
   @keyframes rise { to { opacity: 1; transform: none; } }
-
   @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
-
-
   /* Profile picture: reveals once on load, then stays still (no floating) */
-
   .arch img { animation: archIn 1.2s cubic-bezier(.2,.8,.2,1) .3s both; }
-
   @keyframes archIn { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
 
-
-
   /* Tags fade in, then keep bobbing */
-
   .float-tag { position: absolute; padding: 8px 16px; background: var(--white); border: 1.5px solid var(--nude); border-radius: 999px; font-size: .85rem; white-space: nowrap; box-shadow: 0 10px 24px rgba(74,50,40,.12); opacity: 0; animation: fadeUp .8s 1.4s forwards, bob 5s ease-in-out 2.2s infinite; }
-
   .float-tag.t1 { top: 10%; left: -22%; }
-
   .float-tag.t2 { bottom: 12%; right: -14%; animation-delay: 1.7s, 2.6s; }
-
   @keyframes bob { 50% { transform: translateY(-9px); } }
 
-
-
   /* Waving emoji after "About me" */
-
   .wave { display: inline-block; font-style: normal; transform-origin: 50% 50%; animation: bloom 6s ease-in-out infinite; }
-
   @keyframes bloom {
-
     0%   { transform: rotate(0deg) scale(1); }
-
     50%  { transform: rotate(180deg) scale(1.2); }
-
     100% { transform: rotate(360deg) scale(1); }
-
   }
 
-
-
   /* Flexible button row: one line on laptop, wraps on tablet, stacks on phone */
-
   .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-
   .hero-actions .btn, .hero-actions .btn.ghost { margin: 0; white-space: nowrap; flex: 0 1 auto; }
 
-
-
   /* Animated background: slowly shifting colors, floating orbs, soft grain texture */
-
   @keyframes bgShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-
   .bg-fx { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: linear-gradient(120deg, var(--g1), var(--g2), var(--g3), var(--g4), var(--g1)); background-size: 300% 300%; animation: bgShift 24s ease-in-out infinite; }
-
   .orb { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .5; animation: orbMove 20s ease-in-out infinite alternate; }
-
   .orb.o1 { width: 420px; height: 420px; background: var(--orb1); top: 8%; left: -8%; }
-
   .orb.o2 { width: 360px; height: 360px; background: var(--orb2); top: 50%; right: -6%; animation-duration: 26s; animation-delay: -8s; }
-
   .orb.o3 { width: 320px; height: 320px; background: var(--orb3); bottom: -6%; left: 30%; animation-duration: 30s; animation-delay: -14s; }
-
   @keyframes orbMove { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(60px, -50px) scale(1.2); } }
-
   .grain { position: fixed; inset: 0; z-index: 9; pointer-events: none; opacity: var(--grain-op); mix-blend-mode: var(--grain-blend); background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .29 0 0 0 0 .2 0 0 0 0 .16 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
 
-
-
   /* Dark mode toggle */
-
-  .theme-toggle { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--nude); background: transparent; color: var(--chocolate); font-size: 1.1rem; line-height: 1; cursor: pointer; display: grid; place-items: center; transition: *background* .2s, transform .3s; }
-
+  .theme-toggle { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--nude); background: transparent; color: var(--chocolate); font-size: 1.1rem; line-height: 1; cursor: pointer; display: grid; place-items: center; transition: background .2s, transform .3s; }
   .theme-toggle:active { transform: rotate(20deg) scale(.92); }
-
   @media (hover: hover) { .theme-toggle:hover { background: var(--sand); } }
-
   .theme-wrap { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-
   .theme-label { font-size: .85rem; color: var(--mocha); min-width: 2.6em; text-align: right; }
-
   @media (max-width: 400px) { .theme-label { display: none; } }
-
   header, .about, .skills, .skill-card, .badge, .float-tag, .chip, dialog { transition: background-color .4s ease, color .4s ease, border-color .4s ease; }
-
   nav > ul { margin-left: auto; margin-right: 18px; }
 
-
-
   /* Full-size picture viewer */
-
   .gallery img { cursor: zoom-in; }
-
   #lightbox { width: 100%; max-width: none; height: 100%; max-height: none; border-radius: 0; background: rgba(51,34,27,.94); overflow: hidden; }
-
   #lightbox[open] { display: flex; align-items: center; justify-content: center; }
-
   #lightbox img { max-width: 94vw; max-height: 88vh; max-height: 88dvh; width: auto; height: auto; object-fit: contain; border-radius: 12px; cursor: zoom-out; }
 
-
-
-  /* Certificates: A4 portrait cards (desktop and app) */
-
-  .cert-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); }
-
+  /* Certificates: one square frame fits BOTH portrait and landscape certificates.
+     The whole certificate is always visible (object-fit: contain), never cropped.
+     To change the frame shape, edit --cert-ratio:
+       1 / 1  = square (best for mixed portrait + landscape)
+       4 / 3  = wider (best if most certificates are landscape)
+       3 / 4  = taller (best if most certificates are portrait) */
+  .cert-grid { --cert-ratio: 1 / 1; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
   .card.cert .frame { border-radius: 16px; }
-
-  .card.cert img { aspect-ratio: 210 / 297; object-fit: contain; border-radius: 10px; }
-
+  .card.cert img { aspect-ratio: var(--cert-ratio); object-fit: contain; border-radius: 10px; background: var(--sand); }
   .card.cert h3 { font-size: 1.35rem; }
 
-
+  /* "See more" / "See less" button under each card list */
+  .card.is-hidden { display: none; }
+  .see-more-wrap { margin-top: 40px; text-align: center; }
+  .see-more { font: inherit; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 12px 34px; }
+  .see-more::after { content: "↓"; transition: transform .2s; }
+  .see-more[aria-expanded="true"]::after { transform: rotate(180deg); }
 
   /* ===== APP / PHONE SIZES, following HCI rules =====
-
      - Touch targets at least 44 x 44 px (buttons, menu links, filters, close buttons)
-
      - Body text at least 16 px, small text never below 14 px
-
      - At least 8 px between tappable items
-
-     - Next card peeks out so people see the row swipes sideways
-
-     - Events, Projects and Certificates stay in 2 rows to save scrolling */
-
+     - Events, Projects and Certificates stay in 2 columns to save scrolling */
   @media (max-width: 760px) {
-
     body { font-size: 1rem; line-height: 1.6; }
-
     .wrap { padding: 0 20px; }
-
     .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 48px; }
-
     section { padding: 64px 0; scroll-margin-top: 68px; }
-
     h2 { font-size: 2.1rem; }
-
     .lead { font-size: 1rem; margin-bottom: 28px; }
 
-
-
     /* Compact phone header with a burger dropdown */
-    nav { height:64px; gap:10px; position:relative; }
-    .logo { font-size:1.3rem; white-space:nowrap; margin-right:auto; }
-    .menu-toggle { display:flex; width:44px; height:44px; }
-    nav ul { display:none; position:absolute; top:calc(100% + 1px); left:0; right:0; margin:0; padding:10px; flex-direction:column; gap:4px; background:var(--header-bg); border:1px solid var(--sand); border-radius:0 0 16px 16px; box-shadow:0 14px 28px rgba(51,34,27,.12); z-index:30; }
-    nav ul.open { display:flex; }
-    nav ul a { display:flex; align-items:center; min-height:46px; padding:0 14px; font-size:1rem; border-radius:10px; }
-    nav ul a:active { background:var(--sand); }
-    .theme-toggle { width:44px; height:44px; font-size:1.2rem; }
-    .theme-label { font-size:.9rem; }
-
+    nav { height: 64px; gap: 10px; position: relative; }
+    .logo { font-size: 1.3rem; white-space: nowrap; margin-right: auto; }
+    .menu-toggle { display: flex; width: 44px; height: 44px; }
+    nav ul { display: none; position: absolute; top: calc(100% + 1px); left: 0; right: 0; margin: 0; padding: 10px; flex-direction: column; gap: 4px; background: var(--header-bg); border: 1px solid var(--sand); border-radius: 0 0 16px 16px; box-shadow: 0 14px 28px rgba(51,34,27,.12); z-index: 30; }
+    nav ul.open { display: flex; }
+    nav ul a { display: flex; align-items: center; min-height: 46px; padding: 0 14px; font-size: 1rem; border-radius: 10px; }
+    nav ul a:active { background: var(--sand); }
+    .theme-toggle { width: 44px; height: 44px; font-size: 1.2rem; }
+    .theme-label { font-size: .9rem; }
 
     /* Hero: photo on top, text centered below */
-
     .hero { padding: 40px 0 72px; text-align: center; }
-
     .hero-grid { gap: 40px; }
-
     .arch { order: -1; width: min(70%, 260px); }
-
     .hero p { margin-left: auto; margin-right: auto; }
-
     .hero .full { font-size: 1rem; }
-
     .hero .typed { font-size: 1.4rem; min-height: 3.6rem; }
-
     .badge { font-size: .9rem; padding: 8px 16px; }
-
     .float-tag { font-size: .875rem; padding: 6px 12px; white-space: normal; max-width: 62%; text-align: center; line-height: 1.3; }
-
     .float-tag.t1 { left: -4%; top: 4%; }
-
     .float-tag.t2 { right: -4%; }
 
-
-
     /* Buttons: at least 48 px tall, 12 px apart */
-
     .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 24px; font-size: 1rem; }
-
     .btn.sm { min-height: 44px; padding: 10px 22px; font-size: .95rem; }
-
     .hero-actions { flex-direction: column; align-items: center; gap: 12px; }
-
     .hero-actions .btn { width: 100%; max-width: 320px; }
 
-
-
     /* About + Skills */
-
     .skills { padding: 26px 24px; }
-
     .skills dd { font-size: 1rem; }
-
     .skill-card { padding: 24px 22px; }
-
     .skill-card p { font-size: 1rem; }
-
     .chip { font-size: .9rem; padding: 6px 14px; }
-
     .chip small { font-size: .875rem; }
 
-
-
     /* Filters and tip */
-
     .filters { gap: 10px; margin-bottom: 24px; }
-
     .filters button { min-height: 44px; padding: 8px 20px; font-size: 1rem; }
-
     .tip { font-size: .9rem; padding: 8px 16px; margin-bottom: 24px; line-height: 1.4; text-align: left; }
 
-
-
-    /* Two cards per row; page scrolls vertically instead of nested horizontal swiping */
+    /* Two cards per row; the page scrolls vertically */
     #grid, #projectGrid, #certGrid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-template-rows: auto;
@@ -636,1472 +342,761 @@
     }
     #grid .empty, #projectGrid .empty { grid-column: 1 / -1; }
     #grid .sum, #projectGrid .sum { display: none; }
-    /* Keep the original card text styling unchanged */
     .card-body { padding: 16px 4px 0; }
     .card h3, #grid .card h3, #projectGrid .card h3, #certGrid .card h3 { font-size: 1.3rem; line-height: 1.15; }
     .role { font-size: 1rem; line-height: 1.4; }
     .date { font-size: .9rem; }
     .more, #grid .more, #projectGrid .more, #certGrid .more { min-height: 44px; font-size: .9rem; padding: 8px 16px; }
 
-
     /* Roles stack */
-
     .roles li { flex-direction: column; gap: 2px; }
-
     .roles strong { font-size: 1.35rem; }
-
     .roles span { white-space: normal; font-size: 1rem; }
 
-
-
     /* Contact links: 44 px tall */
-
     .contact-link { min-height: 44px; padding: 10px 4px; font-size: 1rem; }
-
     footer { font-size: .9rem; }
 
-
-
     /* Pop-up windows */
-
     .modal-inner { padding: 40px 22px 28px; }
-
     .modal-inner h3 { font-size: 1.9rem; }
-
     .modal-inner ul, .modal-inner li { font-size: 1rem; line-height: 1.6; }
-
     .modal-inner li { margin-bottom: 8px; }
-
     .close { width: 48px; height: 48px; top: 10px; right: 10px; font-size: 1.5rem; }
-
   }
-
-
 
   /* Very small phones */
-
   @media (max-width: 400px) {
-
     .wrap { padding: 0 16px; }
-
     .logo { font-size: 1.15rem; }
-
     nav { gap: 8px; }
-
     nav ul a { padding: 0 8px; font-size: .9rem; }
-
     .contact-link { font-size: 1rem; }
-
-    #grid, #projectGrid { grid-auto-columns: 64%; }
-
-    #certGrid { grid-auto-columns: 56%; }
-
   }
-
-
 
   /* Mobile/app viewport fixes: keep the decorative background attached to the
      viewport and make the details dialog fit and scroll cleanly on phones. */
   @media (max-width: 760px) {
     body { isolation: isolate; }
-
-    .bg-fx {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      transform: translate3d(0, 0, 0);
-      backface-visibility: hidden;
-      will-change: transform;
-      z-index: -1;
-    }
-
-    dialog#modal {
-      width: calc(100% - 20px);
-      max-width: none;
-      max-height: calc(100vh - 24px);
-      max-height: calc(100dvh - 24px);
-      margin: auto;
-      border-radius: 20px;
-      overscroll-behavior: contain;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    #modal .close {
-      position: sticky;
-      top: 10px;
-      float: right;
-      margin: 10px 10px -58px 0;
-    }
-
-    #modal .modal-inner {
-      padding: 68px 18px 24px;
-    }
-
-    #modal .modal-inner h3 {
-      padding-right: 0;
-      overflow-wrap: anywhere;
-    }
-
-    #modal .gallery {
-      grid-template-columns: minmax(0, 1fr);
-    }
+    .bg-fx { position: fixed; inset: 0; width: 100%; height: 100vh; height: 100dvh; transform: translate3d(0, 0, 0); backface-visibility: hidden; will-change: transform; z-index: -1; }
+    dialog#modal { width: calc(100% - 20px); max-width: none; max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px); margin: auto; border-radius: 20px; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+    #modal .close { position: sticky; top: 10px; float: right; margin: 10px 10px -58px 0; }
+    #modal .modal-inner { padding: 68px 18px 24px; }
+    #modal .modal-inner h3 { padding-right: 0; overflow-wrap: anywhere; }
+    #modal .gallery { grid-template-columns: minmax(0, 1fr); }
   }
 
   @media (prefers-reduced-motion: reduce) {
-
     html { scroll-behavior: auto; }
-
     .btn, .card .frame, .filters button, .more, .more .arrow, .contact-link { transition: none; }
-
     .cursor { animation: none; }
-
     .blob, .dot::after, .arch img, .badge, .wave, .bg-fx, .orb, .contact { animation: none; }
-
     .float-tag { animation: none; opacity: 1; }
-
     .ch { opacity: 1; transform: none; animation: none; }
-
   }
-
 </style>
-
 </head>
-
 <body>
 
-
-
 <div class="bg-fx" aria-hidden="true"><i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i></div>
-
 <div class="grain" aria-hidden="true"></div>
-
 <div id="progress"></div>
 
-
-
 <header>
-
   <div class="wrap">
-
     <nav aria-label="Main">
-
       <a class="logo" href="#top">Portfolio</a>
-
-      <button class="menu-toggle" id="menuToggle" type="button"
-              aria-label="Open navigation menu" aria-expanded="false" aria-controls="mainMenu">
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mainMenu">
         <span></span><span></span><span></span>
       </button>
       <ul id="mainMenu">
-
         <li><a href="#about">About</a></li>
-
         <li><a href="#skills">Skills</a></li>
-
         <li><a href="#projects">Projects</a></li>
-
         <li><a href="#events">Events</a></li>
-
         <li><a href="#certificates">Certificates</a></li>
-
         <li><a href="#contact">Contact</a></li>
-
       </ul>
-
       <div class="theme-wrap">
-
         <span class="theme-label" id="themeLabel" aria-live="polite">Light</span>
-
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">🌙</button>
-
       </div>
-
     </nav>
-
   </div>
-
 </header>
 
-
-
 <main id="top">
-
   <!-- HERO -->
-
   <section class="hero">
-
     <span class="blob b1" aria-hidden="true"></span>
-
     <span class="blob b2" aria-hidden="true"></span>
-
     <div class="wrap hero-grid">
-
       <div>
-
         <span class="badge"><i class="dot"></i> Open to internship</span>
-
         <h1 id="heroTitle" aria-label="Hi, I'm Orlin!">Hi, I'm Orlin!</h1>
-
         <p class="full">Wan Orlin Balqis binti Wan Sapiansori</p>
-
         <p class="typed"><span id="typed"></span><span class="cursor">|</span></p>
 
-
-
         <p class="lead">
-
           Information Systems student pursuing a Bachelor of Information Systems
-
           (Hons.) in Intelligent Systems Engineering at Universiti Teknologi MARA
-
           (UiTM). Responsible, adaptable, and hardworking, with a passion for
-
           learning new skills and taking on new challenges.
-
         </p>
 
-
-
         <div class="hero-actions">
-
           <a class="btn" href="#projects">View my projects</a>
-
           <a class="btn ghost" href="https://drive.google.com/file/d/1fejkg8uY56N-w5jzAefV9bw_FfKBlsJc/view?usp=sharing" target="_blank" rel="noopener">Download CV</a>
-
           <a class="btn ghost" href="#contact">Contact me</a>
-
         </div>
-
       </div>
-
-
 
       <div class="arch">
-
         <img src="images/profile.png" alt="Portrait of Orlin" width="400" height="500">
-
         <span class="float-tag t1">Intelligent Systems Engineering</span>
-
         <span class="float-tag t2">Developer + Multimedia</span>
-
       </div>
-
     </div>
-
   </section>
-
-
 
   <!-- ABOUT -->
-
   <section id="about" class="about">
-
     <div class="wrap about-grid">
-
       <div>
-
         <h2>About me <span class="wave" aria-hidden="true">🌸</span></h2>
-
         <p class="lead">I study computing at UiTM Kedah and spend my time outside class on community programmes. At SULAM events I guide school students through hands-on technology, and in student clubs I lead multimedia work from posters to social media.</p>
-
       </div>
-
       <dl class="skills">
-
         <dt>Facilitation</dt>
-
         <dd>Guiding students, explaining technical steps, supporting lecturers and teachers</dd>
-
         <dt>Multimedia</dt>
-
         <dd>Poster design, event photography, video and highlight reels, social media</dd>
-
         <dt>Technical</dt>
-
         <dd>Laser engraving, Maker Tech workshops, coding mentoring</dd>
-
       </dl>
-
     </div>
-
   </section>
-
-
 
   <!-- SKILLS -->
-
   <section id="skills">
-
     <div class="wrap center">
-
       <h2>Skills</h2>
-
       <p class="lead">Tools and skills I use for my studies, projects and events.</p>
 
-
-
       <div class="skill-grid" id="skillGrid">
-
         <div class="skill-card">
-
           <h3>Programming &amp; Development</h3>
-
           <ul class="chips">
-
             <li class="chip">Python</li>
-
             <li class="chip">C++</li>
-
             <li class="chip">PHP</li>
-
             <li class="chip">JavaScript</li>
-
             <li class="chip">Laravel</li>
-
             <li class="chip">MySQL</li>
-
             <li class="chip">HTML</li>
-
             <li class="chip">CSS</li>
-
             <li class="chip">Git</li>
-
           </ul>
-
         </div>
 
-
-
         <div class="skill-card">
-
           <h3>AI, Cloud &amp; IoT</h3>
-
           <ul class="chips">
-
             <li class="chip">Gemini API</li>
-
             <li class="chip">Firebase</li>
-
             <li class="chip">ESP8266</li>
-
             <li class="chip">ESP32</li>
-
             <li class="chip">Blynk</li>
-
             <li class="chip">Machine Learning</li>
-
           </ul>
-
         </div>
 
-
-
         <div class="skill-card">
-
           <h3>Design &amp; Multimedia</h3>
-
           <ul class="chips">
-
             <li class="chip">Figma</li>
-
             <li class="chip">Adobe Photoshop</li>
-
             <li class="chip">Adobe Premiere Pro</li>
-
             <li class="chip">CapCut</li>
-
             <li class="chip">Canva</li>
-
           </ul>
-
         </div>
 
-
-
         <div class="skill-card">
-
           <h3>Tools &amp; Productivity</h3>
-
           <ul class="chips">
-
             <li class="chip">Microsoft Word</li>
-
             <li class="chip">Microsoft Excel</li>
-
             <li class="chip">Google Docs</li>
-
             <li class="chip">Power BI</li>
-
             <li class="chip">Oracle</li>
-
             <li class="chip">Laragon</li>
-
             <li class="chip">Cisco</li>
-
           </ul>
-
         </div>
 
-
-
         <div class="skill-card">
-
           <h3>Soft Skills &amp; Languages</h3>
-
           <ul class="chips">
-
             <li class="chip">Self-Learning</li>
-
             <li class="chip">Teamwork</li>
-
             <li class="chip">Time Management</li>
-
             <li class="chip">Communication</li>
-
             <li class="chip">Hardworking</li>
-
             <li class="chip">Problem-Solving</li>
-
             <li class="chip">English <small>language</small></li>
-
             <li class="chip">Malay <small>language</small></li>
-
           </ul>
-
         </div>
-
-
 
         <div class="skill-card">
-
           <h3>Activities &amp; Involvement</h3>
-
           <p>Active as a committee member and volunteer, contributing across logistics, publicity and event operations.</p>
-
           <ul class="chips">
-
             <li class="chip">Logistics</li>
-
             <li class="chip">Publicity</li>
-
             <li class="chip">Event Operations</li>
-
           </ul>
-
         </div>
-
       </div>
-
     </div>
-
   </section>
-
-
 
   <!-- COURSE PROJECTS -->
-
   <section id="projects" class="about">
-
     <div class="wrap center">
-
       <h2>Course projects</h2>
-
       <p class="lead">Projects I built for my subjects at UiTM.</p>
-
       <p class="tip">👆 Tip: click any project card to see the full details, tools used and pictures.</p>
-
       <div class="grid" id="projectGrid"></div>
-
     </div>
-
   </section>
-
-
 
   <!-- EVENTS -->
-
   <section id="events">
-
     <div class="wrap center">
-
       <h2>Events I joined</h2>
-
       <p class="lead">Programmes and clubs I have been part of.</p>
-
       <div class="filters" id="filters" role="group" aria-label="Filter events"></div>
-
       <p class="tip">👆 Tip: use the filters to sort events, then click any card to see what I did and the photos.</p>
-
       <div class="grid" id="grid"></div>
-
     </div>
-
   </section>
 
-
-
-  <!-- ROLES -->
-
-  <section id="roles" class="about">
-
+  <!-- ACHIEVEMENTS & CERTIFICATES -->
+  <section id="certificates" class="about">
     <div class="wrap center">
-
-      <h2>Roles</h2>
-
-      <p class="lead">Positions I have held in clubs and programmes.</p>
-
-      <ul class="roles" style="text-align:left">
-
-        <li><strong>Exco of Multimedia and Publicity, COSMIC</strong><span>April 2026 to present</span></li>
-
-        <li><strong>Head of Multimedia, Clubfest Facade of Camaraderie</strong><span>2026</span></li>
-
-        <li><strong>Facilitator, SULAM Kedah Digital Festival</strong><span>2026</span></li>
-
-        <li><strong>Facilitator and AJK Multimedia, SULAM School Attack</strong><span>2026</span></li>
-
-      </ul>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- ACHIEVEMENTS & CERTIFICATES (NEW) -->
-
-  <section id="certificates">
-
-    <div class="wrap center">
-
       <h2>Achievements &amp; Certificates</h2>
-
       <p class="lead">Awards, certificates and recognition I have received.</p>
-
       <p class="tip">👆 Tip: click any certificate to view it in full size.</p>
-
       <div class="grid cert-grid" id="certGrid"></div>
-
     </div>
-
   </section>
 
-
+  <!-- ROLES (now after Certificates) -->
+  <section id="roles">
+    <div class="wrap center">
+      <h2>Roles</h2>
+      <p class="lead">Positions I have held in clubs and programmes.</p>
+      <ul class="roles" style="text-align:left">
+        <li><strong>Exco of Multimedia and Publicity, COSMIC</strong><span>April 2026 to present</span></li>
+        <li><strong>Head of Multimedia, Clubfest Facade of Camaraderie</strong><span>2026</span></li>
+        <li><strong>Facilitator, SULAM Kedah Digital Festival</strong><span>2026</span></li>
+        <li><strong>Facilitator and AJK Multimedia, SULAM School Attack</strong><span>2026</span></li>
+      </ul>
+    </div>
+  </section>
 
   <!-- CONTACT -->
-
   <section id="contact" class="contact">
-
     <div class="wrap center">
-
       <h2>Get in touch</h2>
-
       <p class="lead">Open to internships, volunteering and collaborations.</p>
 
-
-
       <div class="contact-links">
-
         <a class="contact-link" href="mailto:orlinbalqis@gmail.com">
-
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
-
           orlinbalqis@gmail.com
-
         </a>
-
         <a class="contact-link" href="https://wa.link/2caiz3" target="_blank" rel="noopener">
-
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-
           WhatsApp
-
         </a>
-
       </div>
-
     </div>
-
   </section>
-
 </main>
-
-
 
 <footer>&copy; <span id="year"></span> Wan Orlin Balqis</footer>
 
-
-
 <!-- Details window (used by both events and projects) -->
-
 <dialog id="modal" aria-labelledby="m-title">
-
   <button class="close" id="close" aria-label="Close">&times;</button>
-
   <div class="modal-inner">
-
     <h3 id="m-title"></h3>
-
     <p class="role" id="m-role"></p>
-
     <p class="date" id="m-date"></p>
-
     <ul id="m-points"></ul>
-
     <ul class="chips" id="m-tech"></ul>
-
     <div class="plinks" id="m-links"></div>
-
     <div class="gallery" id="m-gallery"></div>
-
   </div>
-
 </dialog>
-
-
 
 <!-- Full-size picture viewer -->
-
 <dialog id="lightbox" aria-label="Full size picture">
-
   <button class="close" id="lbClose" aria-label="Close picture">&times;</button>
-
   <img id="lbImg" alt="">
-
 </dialog>
 
-
-
 <script>
-
   /* =====================================================
-
      ADD YOUR COURSE PROJECTS HERE
-
      Copy one block, paste it below, and change the text.
-
      cover:  the picture shown on the card (put it in the "images" folder)
-
      images: the pictures shown in the pop-up window
-
      tech:   tools and languages used
-
      links:  optional buttons. Leave the list empty [] for none.
-
      ===================================================== */
-
-    const projects = [
-
+  const projects = [
     {
-
       title: "Traffic Accident Severity Prediction",
-
       role: "Final Year Project (FYP)",
-
       date: "June 2026 - present",
-
       summary: "Machine learning system that predicts how severe a road accident is.",
-
       points: [
-
         "Uses the US Accidents dataset from Kaggle, with over seven million accident records",
-
         "Balances the data with random undersampling and SMOTENC, because minor accidents far outnumber severe ones",
-
         "Compares Random Forest, SVM and LightGBM to find the best model, following the CRISP-DM framework",
-
         "Planned interactive Power BI dashboard to show the predicted results"
-
       ],
-
       tech: ["Python", "Random Forest", "SVM", "LightGBM", "SMOTENC", "Power BI"],
-
       links: [],
-
       cover: "fyp-cover.png",
-
       images: ["fyp-1.png", "fyp-2.png", "fyp-3.jpg"]
-
     },
-
     {
-
       title: "E2E Service Data System, SUK Kelantan",
-
       role: "CSC339: Industrial Training",
-
       date: "Oct 2024 - Feb 2025",
-
       summary: "Web system for Kelantan departments to submit service data and generate reports.",
-
       points: [
-
         "Built during industrial training at the Information Technology Management Division, State Secretary Office of Kelantan",
-
         "Three user roles: main administrator, administrator and reporter, so departments submit data and admins check it before it goes to the central administration",
-
         "Email notifications, automatic report generation and charts for analysing the data",
-
         "Role-based access and an audit trail that tracks user actions"
-
       ],
-
       tech: ["Laravel", "JavaScript", "MySQL", "Laragon"],
-
       links: [],
-
       cover: "e2e-cover.jpg",
-
       images: ["e2e-1.jpg", "e2e-2.jpg", "e2e-3.jpg"]
-
     },
-
     {
-
       title: "Half Full Cafe Ordering System",
-
       role: "ICT501: Database Management System",
-
       date: "2025",
-
       summary: "Online ordering database system for a cafe in Sungai Petani, with dine-in and pickup orders.",
-
       points: [
-
         "Aims to cut waiting time, reduce order errors and separate dine-in from pickup orders",
-
         "ERD and flowchart drawn in Draw.io, then the database and web app built in Oracle APEX",
-
         "Dashboard with interactive charts for table usage, revenue by payment method and sales",
-
         "Manages customers, inventory, staff, suppliers, menu, orders and payments, with 10 SQL queries"
-
       ],
-
       tech: ["Oracle APEX", "Oracle SQL", "Draw.io", "JavaScript"],
-
       links: [],
-
       cover: "halffull-cover.png",
-
       images: ["halffull-1.jpg", "halffull-2.jpg", "halffull-3.jpg"]
-
     },
-
     {
-
       title: "FloraSense",
-
       role: "ITT569: Internet of Things (IoT)",
-
       date: "July 2026",
-
       summary: "IoT smart plant monitoring system with AI plant health advice.",
-
       points: [
-
         "An ESP8266 reads temperature, humidity and soil moisture and uploads the data to Firebase",
-
         "A Python program sends the readings to Gemini AI, which returns a health score, risk level and watering advice",
-
         "The Blynk mobile app shows live readings and AI advice, sends alerts and lets users switch the water pump on and off",
-
         "Tested on a real potted plant with an LCD display, relay and mini water pump"
-
       ],
-
       tech: ["ESP8266", "DHT11", "Firebase", "Blynk", "Python", "Gemini API"],
-
       links: [],
-
       cover: "florasense-cover.jpg",
-
       images: ["florasense-1.jpg", "florasense-2.jpg", "florasense-3.jpg"]
-
     },
-
     {
-
       title: "Skintific Review Sentiment Analysis",
-
       role: "ISP610: Business Data Analytics",
-
       date: "July 2026",
-
       summary: "Classifying Shopee reviews of a moisturiser as positive or negative.",
-
       points: [
-
         "Collected and cleaned about 1,000 customer reviews, including English and Malay stopword removal",
-
         "Turned the text into TF-IDF features and compared Random Forest, Naive Bayes and Deep Learning in RapidMiner",
-
         "Deep Learning performed best with 89.87% accuracy and 69.07% precision",
-
         "Tested on 49 unseen reviews, with about 92% agreement in a manual check"
-
       ],
-
       tech: ["RapidMiner", "TF-IDF", "Random Forest", "Naive Bayes", "Deep Learning"],
-
       links: [],
-
       cover: "isp610-cover.png",
-
       images: ["isp610-1.jpg", "isp610-2.jpg", "isp610-3.jpg"]
-
     },
-
     {
-
       title: "SmartJog AI",
-
       role: "ISP624 group project (Team Solara)",
-
       date: "October 2026",
-
       summary: "IoT jogging route recommendation app for smart townships.",
-
       points: [
-
         "Proposed ESP32 and DHT22 sensors to measure temperature and humidity along jogging routes",
-
         "Firebase stores the readings and a Flutter app shows live conditions and a route map",
-
         "Routes are ranked by heat, humidity, distance and shade, and marked Suitable, Use Caution or Not Recommended with a reason",
-
         "Designed the app screens, from login and home to the route map"
-
       ],
-
       tech: ["ESP32", "DHT22", "Firebase", "Flutter"],
-
       links: [{ label: "GitHub", url: "https://nilro03.github.io/SmartJog.github.io/" }],
-
       cover: "smartjog-cover.jpg",
-
       images: ["smartjog-1.jpg", "smartjog-2.jpg", "smartjog-3.jpg"]
-
     }
-
   ];
 
   /* =====================================================
-
      ADD YOUR EVENTS HERE
-
      Copy one block, paste it below, and change the text.
-
      Put photos in the "images" folder and list the file names.
-
      category examples: "Facilitator", "Multimedia", "Sports"
-
      (filter buttons are created automatically from the categories)
-
      ===================================================== */
-
   const events = [
-
     {
-
       title: "Kedah Digital Festival",
-
       role: "Facilitator, Laser Engraver Workshop",
-
       date: "2026",
-
       category: "Facilitator",
-
       summary: "Guided 400 to 500 students at the laser engraver booth.",
-
       points: [
-
         "Set up and tested the laser engraving equipment and booth layout",
-
         "Guided school students, UiTM students and teachers in using the laser engraver safely",
-
         "Solved equipment problems on site to keep the booth running"
-
       ],
-
       images: ["kdf-1.jpg", "kdf-2.jpg", "kdf-3.jpg"]
-
     },
-
     {
-
       title: "SULAM Advance Workshop: Maker Tech",
-
       role: "Facilitator, Secondary Level",
-
       date: "26 to 27 August 2026",
-
       category: "Facilitator",
-
       summary: "Guided student groups through Maker Tech activities at Dewan Al-Farabi, JPN Kedah.",
-
       points: [
-
         "Explained activities and helped students when they got stuck",
-
         "Supported setup and use of the workshop equipment",
-
         "Took photos for programme documentation"
-
       ],
-
       images: ["maker-1.jpg", "maker-2.jpg", "maker-3.jpg"]
-
     },
-
     {
-
       title: "School Attack",
-
       role: "Facilitator of Form 4 SMK Merbok and AJK Multimedia",
-
       date: "2026",
-
       category: "Facilitator",
-
       summary: "Taught coding basics to Form 4 students and handled the poster and photos.",
-
       points: [
-
         "Guided Form 4 students in learning coding and supported the lecturer",
-
         "Designed the programme poster",
-
         "Took photos during the programme"
-
       ],
-
       images: ["schoolattack-1.jpg", "schoolattack-2.jpg", "schoolattack-3.jpg"]
-
     },
-
     {
-
       title: "COSMIC",
-
       role: "Exco of Multimedia and Publicity",
-
       date: "April 2026 to present",
-
       category: "Multimedia",
-
       summary: "Academic club that supports students and runs course and faculty events.",
-
       points: [
-
         "Designed posters and announcements for students",
-
         "Managed social media accounts and online groups",
-
         "Produced videos, highlight reels and photo albums"
-
       ],
-
       images: ["cosmic-1.jpg", "cosmic-2.jpg", "cosmic-3.jpg"]
-
     },
-
     {
-
       title: "Clubfest Facade of Camaraderie",
-
       role: "Head of Multimedia",
-
       date: "2026",
-
       category: "Multimedia",
-
       summary: "Led the multimedia team for the event.",
-
       points: [
-
         "Planned posters, promotional materials and digital content",
-
         "Delegated tasks and kept the team on schedule",
-
         "Documented the event with photos and videos"
-
       ],
-
       images: ["clubfest-1.png", "clubfest-2.jpg", "clubfest-3.jpg"]
-
     },
-
     {
-
       title: "Sukan Antara Fakulti (SAF)",
-
       role: "Marching Contingent, FSKM",
-
       date: "June 2026",
-
       category: "Sports",
-
       summary: "Represented FSKM in the marching contingent at the inter-faculty sports event.",
-
       points: [
-
         "Joined the FSKM marching contingent at Sukan Antara Fakulti",
-
         "Practised and performed marching formations with the team",
-
         "Represented the faculty with discipline and teamwork"
-
       ],
-
       images: ["event1-1.jpg", "event1-2.jpg", "event1-3.jpg"]
-
     }
-
   ];
-
-
 
   /* Shows a beige placeholder if an image file is missing */
-
   const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent(
-
     '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000"><rect width="800" height="1000" fill="#e7d8c8"/><text x="400" y="510" font-family="Georgia,serif" font-style="italic" font-size="38" fill="#8a6a58" text-anchor="middle">Add image here</text></svg>'
-
   );
-
   function makeImg(file, alt) {
-
     const img = document.createElement("img");
-
     img.src = "images/" + file;
-
     img.alt = alt;
-
     img.loading = "lazy";
-
     img.onerror = () => { img.onerror = null; img.src = PLACEHOLDER; };
-
     return img;
-
   }
-
-
 
   const grid = document.getElementById("grid");
-
   const projectGrid = document.getElementById("projectGrid");
-
   const filters = document.getElementById("filters");
-
   const modal = document.getElementById("modal");
 
-
+  /* "See more": each list shows only the first 4 cards at first.
+     Change VISIBLE_AT_FIRST to show more or fewer cards before the button. */
+  const VISIBLE_AT_FIRST = 4;
+  function setupSeeMore(gridEl) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "see-more-wrap";
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "btn see-more";
+    wrapper.appendChild(btn);
+    gridEl.after(wrapper);
+    let expanded = false;
+    function update() {
+      const cards = [...gridEl.querySelectorAll(".card")];
+      const extra = cards.length - VISIBLE_AT_FIRST;
+      cards.forEach((c, i) => c.classList.toggle("is-hidden", !expanded && i >= VISIBLE_AT_FIRST));
+      wrapper.hidden = extra <= 0;
+      btn.textContent = expanded ? "See less" : "See more (" + Math.max(extra, 0) + ")";
+      btn.setAttribute("aria-expanded", String(expanded));
+    }
+    btn.addEventListener("click", () => {
+      expanded = !expanded;
+      update();
+      /* After "See less", bring the section title back into view */
+      if (!expanded) gridEl.closest("section").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    return { update, reset() { expanded = false; update(); } };
+  }
+  const projectsMore = setupSeeMore(projectGrid);
+  const eventsMore = setupSeeMore(grid);
 
   /* One card design for both events and projects.
-
      Projects get the "rect" class (rectangle frame), events keep the arch. */
-
   function buildCard(item, coverFile, isProject) {
-
     const card = document.createElement("button");
-
     card.className = "card" + (isProject ? " rect" : "");
-
     card.type = "button";
-
     card.setAttribute("aria-label", "View more about " + item.title);
-
     const frame = document.createElement("div");
-
     frame.className = "frame";
-
     frame.appendChild(makeImg(coverFile, item.title));
-
     card.appendChild(frame);
-
     const body = document.createElement("div");
-
     body.className = "card-body";
-
     body.innerHTML = `<h3></h3><p class="role"></p><p class="date"></p><p class="sum"></p><span class="more" aria-hidden="true">Click to view more <span class="arrow">→</span></span>`;
-
     body.querySelector("h3").textContent = item.title;
-
     body.querySelector(".role").textContent = item.role;
-
     body.querySelector(".date").textContent = item.date;
-
     body.querySelector(".sum").textContent = item.summary;
-
     card.appendChild(body);
-
     card.addEventListener("click", () => openModal(item, isProject));
-
     return card;
-
   }
-
-
 
   function renderProjects() {
-
     projectGrid.innerHTML = "";
-
     if (!projects.length) {
-
       const p = document.createElement("p");
-
       p.className = "empty";
-
       p.textContent = "Projects coming soon.";
-
       projectGrid.appendChild(p);
-
       return;
-
     }
-
     projects.forEach(p => projectGrid.appendChild(buildCard(p, p.cover || p.images[0], true)));
-
   }
-
-
 
   function render(category) {
-
     grid.innerHTML = "";
-
     events.filter(e => category === "All" || [].concat(e.category).includes(category))
-
       .forEach(e => grid.appendChild(buildCard(e, e.images[0], false)));
-
+    eventsMore.reset();
   }
-
-
 
   function buildFilters() {
-
     const cats = ["All", ...new Set(events.flatMap(e => e.category))];
-
     cats.forEach((c, i) => {
-
       const b = document.createElement("button");
-
       b.type = "button";
-
       b.textContent = c;
-
       b.setAttribute("aria-pressed", i === 0);
-
       b.addEventListener("click", () => {
-
         filters.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", "false"));
-
         b.setAttribute("aria-pressed", "true");
-
         render(c);
-
       });
-
       filters.appendChild(b);
-
     });
-
   }
-
-
 
   function openModal(e, isProject) {
-
     document.getElementById("m-title").textContent = e.title;
-
     document.getElementById("m-role").textContent = e.role;
-
     document.getElementById("m-date").textContent = e.date;
 
-
-
     const ul = document.getElementById("m-points");
-
     ul.innerHTML = "";
-
     e.points.forEach(p => { const li = document.createElement("li"); li.textContent = p; ul.appendChild(li); });
 
-
-
     /* Tech tags (projects only) */
-
     const tech = document.getElementById("m-tech");
-
     tech.innerHTML = "";
-
     (e.tech || []).forEach(t => {
-
       const li = document.createElement("li");
-
       li.className = "chip";
-
       li.textContent = t;
-
       tech.appendChild(li);
-
     });
-
     tech.hidden = !(e.tech && e.tech.length);
 
-
-
     /* Optional link buttons (projects only) */
-
     const links = document.getElementById("m-links");
-
     links.innerHTML = "";
-
     const real = (e.links || []).filter(l => l.url);
-
     real.forEach(l => {
-
       const a = document.createElement("a");
-
       a.className = "btn ghost sm";
-
       a.href = l.url;
-
       a.target = "_blank";
-
       a.rel = "noopener";
-
       a.textContent = l.label;
-
       links.appendChild(a);
-
     });
-
     links.hidden = !real.length;
 
-
-
     /* Pictures: projects use "contain" so charts and screenshots are not cropped */
-
     const g = document.getElementById("m-gallery");
-
     g.innerHTML = "";
-
     g.classList.toggle("fit", !!isProject);
-
     e.images.forEach((f, i) => {
-
       const img = makeImg(f, e.title + " picture " + (i + 1));
-
       img.addEventListener("click", () => openLightbox(img.currentSrc || img.src, img.alt));
-
       g.appendChild(img);
-
     });
 
-
-
     modal.showModal();
-
     modal.scrollTop = 0;
-
   }
-
-
 
   /* Details window */
-
   document.getElementById("close").addEventListener("click", () => modal.close());
-
   modal.addEventListener("click", ev => { if (ev.target === modal) modal.close(); });
 
-
-
   /* Full-size picture viewer */
-
   const lightbox = document.getElementById("lightbox");
-
   const lbImg = document.getElementById("lbImg");
-
   function openLightbox(src, alt) {
-
     lbImg.src = src;
-
     lbImg.alt = alt;
-
     lightbox.showModal();
-
   }
-
   lightbox.addEventListener("click", () => lightbox.close());
-
   document.getElementById("lbClose").addEventListener("click", ev => { ev.stopPropagation(); lightbox.close(); });
-
-
 
   document.getElementById("year").textContent = new Date().getFullYear();
 
-
-
   /* Build the projects before the animations pick them up */
-
   renderProjects();
-
-
+  projectsMore.update();
 
   /* ===== Extras: animations, progress bar, active nav, typing ===== */
-
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-
-
   /* Fade-up on scroll */
-
   const io = new IntersectionObserver(entries => {
-
     entries.forEach(en => {
-
       if (en.isIntersecting) { en.target.classList.add("show"); io.unobserve(en.target); }
-
     });
-
   }, { threshold: 0.15 });
 
-
-
   function reveal(el, delay = 0) {
-
     if (reduceMotion) return;
-
     el.classList.add("reveal");
-
     el.style.transitionDelay = delay + "ms";
-
     io.observe(el);
-
   }
-
   document.querySelectorAll("section .wrap > *:not(#grid):not(#projectGrid):not(#skillGrid):not(#certGrid)").forEach(el => reveal(el));
-
   document.querySelectorAll("#skillGrid .skill-card, #projectGrid .card, #projectGrid .empty").forEach((el, i) => reveal(el, (i % 3) * 120));
-
   new MutationObserver(() => {
-
     grid.querySelectorAll(".card").forEach((c, i) => reveal(c, (i % 3) * 120));
-
   }).observe(grid, { childList: true });
 
-
-
   /* Scroll progress bar + active nav link */
-
   const bar = document.getElementById("progress");
-
   const links = [...document.querySelectorAll("nav ul a")];
-
   const secs = links.map(a => document.querySelector(a.getAttribute("href")));
-
   function onScroll() {
-
     const h = document.documentElement;
-
     bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + "%";
-
     let current = -1;
-
     secs.forEach((s, i) => { if (s.getBoundingClientRect().top < 120) current = i; });
-
     /* At the bottom of the page, the last section (Contact) is always the active one */
-
     if (window.innerHeight + h.scrollTop >= h.scrollHeight - 4) current = links.length - 1;
-
     links.forEach((a, i) => a.classList.toggle("active", i === current));
-
   }
-
   addEventListener("scroll", onScroll, { passive: true });
-
   onScroll();
 
-
-
   /* Typing effect */
-
   const words = ["Open to internship opportunities", "Information Systems student at UiTM", "Facilitator · Multimedia · Developer"];
-
   const out = document.getElementById("typed");
-
   if (reduceMotion) {
-
     out.textContent = words[0];
-
   } else {
-
     let w = 0, c = 0, deleting = false;
-
     (function tick() {
-
       const word = words[w];
-
       out.textContent = word.slice(0, c);
-
       if (!deleting && c === word.length) { deleting = true; return setTimeout(tick, 1400); }
-
       if (deleting && c === 0) { deleting = false; w = (w + 1) % words.length; }
-
       c += deleting ? -1 : 1;
-
       setTimeout(tick, deleting ? 40 : 80);
-
     })();
-
   }
-
-
 
   /* Hero title: letters rise in one by one */
-
   const title = document.getElementById("heroTitle");
-
   if (!reduceMotion) {
-
     const txt = title.textContent;
-
     title.textContent = "";
-
     let i = 0;
-
     txt.split(" ").forEach((word, wi, arr) => {
-
       const w = document.createElement("span");
-
       w.className = "word";
-
       [...word].forEach(ch => {
-
         const s = document.createElement("span");
-
         s.className = "ch";
-
         s.style.setProperty("--i", i++);
-
         s.textContent = ch;
-
         w.appendChild(s);
-
       });
-
       title.appendChild(w);
-
       if (wi < arr.length - 1) title.appendChild(document.createTextNode(" "));
-
     });
-
   }
-
-
 
   /* Mobile burger menu */
   const menuToggle = document.getElementById("menuToggle");
@@ -2128,117 +1123,103 @@
     if (window.innerWidth > 760) closeMenu();
   });
 
-
   /* Dark mode toggle */
-
   const themeBtn = document.getElementById("themeToggle");
-
   function applyTheme(t) {
-
     document.documentElement.setAttribute("data-theme", t);
-
     themeBtn.textContent = t === "dark" ? "☀️" : "🌙";
-
     document.getElementById("themeLabel").textContent = t === "dark" ? "Dark" : "Light";
-
     themeBtn.setAttribute("aria-label", t === "dark" ? "Switch to light mode" : "Switch to dark mode");
-
   }
-
   applyTheme(document.documentElement.getAttribute("data-theme") || "light");
-
   themeBtn.addEventListener("click", () => {
-
     const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-
     applyTheme(next);
-
     try { localStorage.setItem("theme", next); } catch (e) {}
-
   });
 
-
-
   /* =====================================================
-
-     ADD YOUR ACHIEVEMENTS AND CERTIFICATES HERE (NEW)
-
+     ADD YOUR ACHIEVEMENTS AND CERTIFICATES HERE
      Put each certificate image in the "images" folder.
-
-     Use A4 portrait images (210 x 297) so nothing is cropped.
-
+     Portrait and landscape images both work: the square
+     frame shows the whole certificate without cropping.
      ===================================================== */
-
   const certificates = [
+    // 2024
+    {
+      title: "Dean's Award – Session 1 2023/2024",
+      issuer: "Universiti Teknologi MARA (UiTM)",
+      date: "2024",
+      image: "cert-1.jpg"
+    },
+    {
+      title: "Dean's Award – Session 2 2023/2024",
+      issuer: "Universiti Teknologi MARA (UiTM)",
+      date: "2024",
+      image: "cert-5.jpg"
+    },
 
-    { title: "International 3-minutes Business Idea Pitch and innovation Competition", issuer: "Organiser / Institution", date: "2024", image: "cert-1.png" },
+    // 2023–2024
+    {
+      title: "Peer Mentoring 2.0: Return and Fly High as a Mentor",
+      issuer: "Persatuan Akademik Sains Komputer (SciCO)",
+      date: "2023–2024",
+      image: "cert-2.jpg"
+    },
+    {
+      title: "Watikah Pelantikan EXCO Akademik",
+      issuer: "Himpunan Siswazah Anak-anak Kelantan (HIMSAK)",
+      date: "2023–2024",
+      image: "cert-3.jpeg"
+    },
 
-    { title: "Peer Mentoring 2.0: Return and Fly High", issuer: "Persatuan Akademik Sains Computer (SciCO)", date: "2023-2024", image: "cert-2.jpg" },
+    // 2023
+    {
+      title: "Certificate of Merit – The Quadratrix (Senior Category)",
+      issuer: "MDEC & Universiti Malaysia Sarawak (UNIMAS)",
+      date: "2023",
+      image: "cert-4.png"
+    },
 
-    { title: "Achievement name",   issuer: "Organiser / Institution", date: "2025", image: "cert-3.png" },
-
-    { title: "Watikah Pelantikan EXCO AKADEMIK",   issuer: "Himpunan Siswazah Anak-anak Kelantan (HIMSAK)", date: "2023-2024", image: "cert-4.jpeg" }
-
+    // 2021
+    {
+      title: "Certificate of Attendance – Holistic Business Media Show",
+      issuer: "Penjana, HSM & UTechtium",
+      date: "2021",
+      image: "cert-6.jpeg"
+    }
   ];
-
-
 
   const certGrid = document.getElementById("certGrid");
 
   certificates.forEach(c => {
-
     const card = document.createElement("button");
-
     card.className = "card cert";
-
     card.type = "button";
-
     card.setAttribute("aria-label", "View certificate: " + c.title);
 
-
-
     const frame = document.createElement("div");
-
     frame.className = "frame";
-
     const img = makeImg(c.image, c.title + " certificate");
-
     frame.appendChild(img);
-
     card.appendChild(frame);
 
-
-
     const body = document.createElement("div");
-
     body.className = "card-body";
-
     body.innerHTML = `<h3></h3><p class="role"></p><p class="date"></p><span class="more" aria-hidden="true">View <span class="arrow">→</span></span>`;
-
     body.querySelector("h3").textContent = c.title;
-
     body.querySelector(".role").textContent = c.issuer;
-
     body.querySelector(".date").textContent = c.date;
-
     card.appendChild(body);
 
-
-
     card.addEventListener("click", () => openLightbox(img.currentSrc || img.src, img.alt));
-
     certGrid.appendChild(card);
-
   });
-
-
+  const certMore = setupSeeMore(certGrid);
+  certMore.update();
 
   buildFilters();
-
   render("All");
-
 </script>
-
 </body>
-
 </html>
