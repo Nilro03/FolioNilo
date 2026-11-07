@@ -50,8 +50,9 @@
     color-scheme: dark;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--beige); }
-  body { font-family: "Jost", system-ui, sans-serif; font-weight: 400; background: transparent; color: var(--chocolate); line-height: 1.7; overflow-wrap: break-word; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--beige); overflow-x: hidden; overscroll-behavior-x: none; }
+  body { font-family: "Jost", system-ui, sans-serif; font-weight: 400; background: transparent; color: var(--chocolate); line-height: 1.7; overflow-wrap: break-word; overflow-x: clip; max-width: 100%; touch-action: pan-y pinch-zoom; }
+  main { overflow-x: clip; }
   img { max-width: 100%; }
   h1, h2, h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; line-height: 1.1; }
   a { color: inherit; }
@@ -346,7 +347,7 @@
     .card h3, #grid .card h3, #projectGrid .card h3, #certGrid .card h3 { font-size: 1.3rem; line-height: 1.15; }
     .role { font-size: 1rem; line-height: 1.4; }
     .date { font-size: .9rem; }
-    .more, #grid .more, #projectGrid .more, #certGrid .more { min-height: 44px; font-size: .9rem; padding: 8px 16px; }
+    .more, #grid .more, #projectGrid .more, #certGrid .more { min-height: 44px; font-size: .9rem; padding: 8px 14px; max-width: 100%; justify-content: center; text-align: center; }
 
     /* Roles stack */
     .roles li { flex-direction: column; gap: 2px; }
