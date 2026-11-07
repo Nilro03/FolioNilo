@@ -268,9 +268,12 @@
   .card.cert img { aspect-ratio: var(--cert-ratio); object-fit: contain; border-radius: 10px; background: var(--sand); }
   .card.cert h3 { font-size: 1.35rem; }
 
-  /* "See more" / "See less" button under each card list */
+  /* "See more" / "See less" button under each card list.
+     It is only used on phones / the app: the script keeps it hidden on
+     laptop and desktop screens, where every card is shown at once. */
   .card.is-hidden { display: none; }
   .see-more-wrap { margin-top: 40px; text-align: center; }
+  .see-more-wrap[hidden] { display: none; }
   .see-more { font: inherit; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 12px 34px; }
   .see-more::after { content: "↓"; transition: transform .2s; }
   .see-more[aria-expanded="true"]::after { transform: rotate(180deg); }
@@ -279,7 +282,7 @@
      - Touch targets at least 44 x 44 px (buttons, menu links, filters, close buttons)
      - Body text at least 16 px, small text never below 14 px
      - At least 8 px between tappable items
-     - Events, Projects and Certificates stay in 2 columns to save scrolling */
+     - On phones, Events, Projects and Certificates use 2 columns to save scrolling */
   @media (max-width: 760px) {
     body { font-size: 1rem; line-height: 1.6; }
     .wrap { padding: 0 20px; }
@@ -330,7 +333,7 @@
     .filters button { min-height: 44px; padding: 8px 20px; font-size: 1rem; }
     .tip { font-size: .9rem; padding: 8px 16px; margin-bottom: 24px; line-height: 1.4; text-align: left; }
 
-    /* Two cards per row; the page scrolls vertically */
+    /* Two cards per row on phones; the page scrolls vertically */
     #grid, #projectGrid, #certGrid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-template-rows: auto;
@@ -865,9 +868,15 @@
   const filters = document.getElementById("filters");
   const modal = document.getElementById("modal");
 
-  /* "See more": each list shows only the first 4 cards at first.
-     Change VISIBLE_AT_FIRST to show more or fewer cards before the button. */
+  /* "See more" only exists on phones / the app (screen width 760px or less).
+     - Phone / app: each list shows the first VISIBLE_AT_FIRST cards, then a
+       "See more" button reveals the rest (2 cards per row).
+     - Laptop / desktop: NO button, every card is shown at once, and the
+       cards fill the width of the page (3 per row).
+     Change VISIBLE_AT_FIRST to show more or fewer cards on phones. */
   const VISIBLE_AT_FIRST = 4;
+  const phoneQuery = window.matchMedia("(max-width: 760px)");
+
   function setupSeeMore(gridEl) {
     const wrapper = document.createElement("div");
     wrapper.className = "see-more-wrap";
@@ -877,20 +886,30 @@
     wrapper.appendChild(btn);
     gridEl.after(wrapper);
     let expanded = false;
+
     function update() {
       const cards = [...gridEl.querySelectorAll(".card")];
-      const extra = cards.length - VISIBLE_AT_FIRST;
-      cards.forEach((c, i) => c.classList.toggle("is-hidden", !expanded && i >= VISIBLE_AT_FIRST));
+      /* On desktop there is no limit, so every card stays visible */
+      const limit = phoneQuery.matches ? VISIBLE_AT_FIRST : cards.length;
+      const extra = cards.length - limit;
+      cards.forEach((c, i) => c.classList.toggle("is-hidden", !expanded && i >= limit));
       wrapper.hidden = extra <= 0;
       btn.textContent = expanded ? "See less" : "See more (" + Math.max(extra, 0) + ")";
       btn.setAttribute("aria-expanded", String(expanded));
     }
+
     btn.addEventListener("click", () => {
       expanded = !expanded;
       update();
       /* After "See less", bring the section title back into view */
       if (!expanded) gridEl.closest("section").scrollIntoView({ behavior: "smooth", block: "start" });
     });
+
+    /* Re-check when the window is resized or the phone is rotated */
+    const onChange = () => update();
+    if (phoneQuery.addEventListener) phoneQuery.addEventListener("change", onChange);
+    else phoneQuery.addListener(onChange);
+
     return { update, reset() { expanded = false; update(); } };
   }
   const projectsMore = setupSeeMore(projectGrid);
