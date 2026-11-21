@@ -1,0 +1,122 @@
+{
+  "stats": [
+    {
+      "value": "2×",
+      "label": "Dean's Award"
+    },
+    {
+      "value": "auto:projects",
+      "label": "Course projects"
+    },
+    {
+      "value": "4",
+      "label": "Leadership roles"
+    },
+    {
+      "value": "500",
+      "label": "Students guided at one festival"
+    }
+  ],
+  "pillars": [
+    {
+      "icon": "fa-solid fa-chalkboard-user",
+      "title": "Facilitation",
+      "text": "Guiding students, explaining technical steps, and supporting lecturers and teachers."
+    },
+    {
+      "icon": "fa-solid fa-camera-retro",
+      "title": "Multimedia",
+      "text": "Poster design, event photography, video and highlight reels, and social media."
+    },
+    {
+      "icon": "fa-solid fa-microchip",
+      "title": "Technical",
+      "text": "Laser engraving, Maker Tech workshops and coding mentoring."
+    }
+  ],
+  "skills": [
+    {
+      "icon": "fa-solid fa-code",
+      "group": "Development",
+      "items": [
+        "Python",
+        "C++",
+        "PHP",
+        "JavaScript",
+        "Laravel",
+        "MySQL",
+        "HTML & CSS",
+        "Git"
+      ]
+    },
+    {
+      "icon": "fa-solid fa-cloud",
+      "group": "AI, Cloud & IoT",
+      "items": [
+        "Gemini API",
+        "Firebase",
+        "ESP8266 / ESP32",
+        "Blynk",
+        "Machine Learning"
+      ]
+    },
+    {
+      "icon": "fa-solid fa-pen-nib",
+      "group": "Design & Media",
+      "items": [
+        "Figma",
+        "Photoshop",
+        "Premiere Pro",
+        "CapCut",
+        "Canva"
+      ]
+    },
+    {
+      "icon": "fa-solid fa-chart-simple",
+      "group": "Data & Tools",
+      "items": [
+        "Power BI",
+        "Oracle",
+        "Excel",
+        "Word & Google Docs",
+        "Laragon",
+        "Cisco"
+      ]
+    },
+    {
+      "icon": "fa-solid fa-seedling",
+      "group": "Strengths",
+      "items": [
+        "Self-learning",
+        "Problem-solving",
+        "Communication",
+        "Teamwork",
+        "Time management",
+        "English & Malay"
+      ],
+      "wide": true
+    }
+  ],
+  "roles": [
+    {
+      "title": "Exco of Multimedia & Publicity",
+      "org": "COSMIC",
+      "date": "Apr 2026 — now"
+    },
+    {
+      "title": "Head of Multimedia",
+      "org": "Clubfest Facade of Camaraderie",
+      "date": "2026"
+    },
+    {
+      "title": "Facilitator",
+      "org": "SULAM Kedah Digital Festival",
+      "date": "2026"
+    },
+    {
+      "title": "Facilitator & AJK Multimedia",
+      "org": "SULAM School Attack",
+      "date": "2026"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+[
+  {
+    "title": "Kedah Digital Festival",
+    "role": "Facilitator, Laser Engraver Workshop",
+    "date": "2026",
+    "category": "Facilitator",
+    "points": [
+      "Guided 400 to 500 school students, UiTM students and teachers at the laser engraver booth",
+      "Set up and tested the laser engraving equipment and booth layout",
+      "Solved equipment problems on site to keep the booth running"
+    ],
+    "images": ["kdf-1.jpg", "kdf-2.jpg", "kdf-3.jpg"]
+  },
+  {
+    "title": "SULAM Advance Workshop: Maker Tech",
+    "role": "Facilitator, secondary level · JPN Kedah",
+    "date": "26–27 Aug 2026",
+    "category": "Facilitator",
+    "points": [
+      "Guided student groups through Maker Tech activities at Dewan Al-Farabi, JPN Kedah",
+      "Explained activities and helped students when they got stuck",
+      "Supported setup and use of the workshop equipment",
+      "Took photos for programme documentation"
+    ],
+    "images": ["maker-1.jpg", "maker-2.jpg", "maker-3.jpg"]
+  },
+  {
+    "title": "School Attack",
+    "role": "Facilitator, Form 4 SMK Merbok · AJK Multimedia",
+    "date": "2026",
+    "category": "Facilitator",
+    "points": [
+      "Guided Form 4 students in learning coding and supported the lecturer",
+      "Designed the programme poster",
+      "Took photos during the programme"
+    ],
+    "images": ["schoolattack-1.jpg", "schoolattack-2.jpg", "schoolattack-3.jpg"]
+  },
+  {
+    "title": "COSMIC",
+    "role": "Exco of Multimedia & Publicity",
+    "date": "Apr 2026 — now",
+    "category": "Multimedia",
+    "points": [
+      "Academic club that supports students and runs course and faculty events",
+      "Designed posters and announcements for students",
+      "Managed social media accounts and online groups",
+      "Produced videos, highlight reels and photo albums"
+    ],
+    "images": ["cosmic-1.jpg", "cosmic-2.jpg", "cosmic-3.jpg"]
+  },
+  {
+    "title": "Clubfest Facade of Camaraderie",
+    "role": "Head of Multimedia",
+    "date": "2026",
+    "category": "Multimedia",
+    "points": [
+      "Planned posters, promotional materials and digital content",
+      "Delegated tasks and kept the team on schedule",
+      "Documented the event with photos and videos"
+    ],
+    "images": ["clubfest-1.png", "clubfest-2.jpg", "clubfest-3.jpg"]
+  },
+  {
+    "title": "Sukan Antara Fakulti (SAF)",
+    "role": "FSKM marching contingent",
+    "date": "Jun 2026",
+    "category": "Sports",
+    "points": [
+      "Joined the FSKM marching contingent at Sukan Antara Fakulti",
+      "Practised and performed marching formations with the team",
+      "Represented the faculty with discipline and teamwork"
+    ],
+    "images": ["event1-1.jpg", "event1-2.jpg", "event1-3.jpg"]
+  }
+]

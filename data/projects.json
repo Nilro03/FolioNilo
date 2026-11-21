@@ -1,0 +1,105 @@
+[
+  {
+    "featured": true,
+    "title": "Traffic Accident Severity Prediction",
+    "course": "Final Year Project",
+    "role": "Final Year Project",
+    "date": "June 2026 — present",
+    "summary": "A machine-learning system trained on over seven million US accident records. It balances the data with undersampling and SMOTENC, then compares Random Forest, SVM and LightGBM under CRISP-DM.",
+    "points": [
+      "Uses the US Accidents dataset from Kaggle, with over seven million accident records",
+      "Balances the data with random undersampling and SMOTENC, because minor accidents far outnumber severe ones",
+      "Compares Random Forest, SVM and LightGBM to find the best model, following the CRISP-DM framework",
+      "Planned interactive Power BI dashboard to show the predicted results"
+    ],
+    "tech": ["Python", "Random Forest", "SVM", "LightGBM", "SMOTENC", "Power BI"],
+    "links": [],
+    "cover": "fyp-cover.png",
+    "images": ["fyp-1.png", "fyp-2.png", "fyp-3.jpg"]
+  },
+  {
+    "title": "E2E Service Data System, SUK Kelantan",
+    "course": "CSC339 · Industrial Training",
+    "role": "CSC339 · Industrial Training",
+    "date": "Oct 2024 — Feb 2025",
+    "summary": "A Laravel system for Kelantan state departments to submit service data, with role-based approval, email alerts, automatic reports and an audit trail.",
+    "points": [
+      "Built during industrial training at the Information Technology Management Division, State Secretary Office of Kelantan",
+      "Three user roles: main administrator, administrator and reporter, so departments submit data and admins check it before it goes to the central administration",
+      "Email notifications, automatic report generation and charts for analysing the data",
+      "Role-based access and an audit trail that tracks user actions"
+    ],
+    "tech": ["Laravel", "JavaScript", "MySQL", "Laragon"],
+    "links": [],
+    "cover": "e2e-cover.jpg",
+    "images": ["e2e-1.jpg", "e2e-2.jpg", "e2e-3.jpg"]
+  },
+  {
+    "title": "FloraSense",
+    "course": "ITT569 · IoT",
+    "role": "ITT569 · Internet of Things",
+    "date": "Jul 2026",
+    "summary": "Smart plant monitoring: ESP8266 sensors feed Firebase, Gemini AI scores plant health, and Blynk shows live readings and controls the pump.",
+    "points": [
+      "An ESP8266 reads temperature, humidity and soil moisture and uploads the data to Firebase",
+      "A Python program sends the readings to Gemini AI, which returns a health score, risk level and watering advice",
+      "The Blynk mobile app shows live readings and AI advice, sends alerts and lets users switch the water pump on and off",
+      "Tested on a real potted plant with an LCD display, relay and mini water pump"
+    ],
+    "tech": ["ESP8266", "DHT11", "Firebase", "Blynk", "Python", "Gemini API"],
+    "links": [],
+    "cover": "florasense-cover.jpg",
+    "images": ["florasense-1.jpg", "florasense-2.jpg", "florasense-3.jpg"]
+  },
+  {
+    "title": "Half Full Cafe Ordering System",
+    "course": "ICT501 · Database Systems",
+    "role": "ICT501 · Database Management System",
+    "date": "2025",
+    "summary": "An Oracle APEX ordering system for a Sungai Petani cafe, with separate dine-in and pickup orders and a sales dashboard.",
+    "points": [
+      "Aims to cut waiting time, reduce order errors and separate dine-in from pickup orders",
+      "ERD and flowchart drawn in Draw.io, then the database and web app built in Oracle APEX",
+      "Dashboard with interactive charts for table usage, revenue by payment method and sales",
+      "Manages customers, inventory, staff, suppliers, menu, orders and payments, with 10 SQL queries"
+    ],
+    "tech": ["Oracle APEX", "Oracle SQL", "Draw.io", "JavaScript"],
+    "links": [],
+    "cover": "halffull-cover.png",
+    "images": ["halffull-1.jpg", "halffull-2.jpg", "halffull-3.jpg"]
+  },
+  {
+    "title": "Skintific Review Sentiment Analysis",
+    "course": "ISP610 · Business Analytics",
+    "role": "ISP610 · Business Data Analytics",
+    "date": "Jul 2026",
+    "summary": "Classified about 1,000 Shopee reviews of a moisturiser with TF-IDF features. Deep Learning reached 89.87% accuracy.",
+    "points": [
+      "Collected and cleaned about 1,000 customer reviews, including English and Malay stopword removal",
+      "Turned the text into TF-IDF features and compared Random Forest, Naive Bayes and Deep Learning in RapidMiner",
+      "Deep Learning performed best with 89.87% accuracy and 69.07% precision",
+      "Tested on 49 unseen reviews, with about 92% agreement in a manual check"
+    ],
+    "tech": ["RapidMiner", "TF-IDF", "Random Forest", "Naive Bayes", "Deep Learning"],
+    "links": [],
+    "cover": "isp610-cover.png",
+    "images": ["isp610-1.jpg", "isp610-2.jpg", "isp610-3.jpg"]
+  },
+  {
+    "title": "SmartJog AI",
+    "course": "ISP624 · Team Solara",
+    "role": "ISP624 · Group project (Team Solara)",
+    "date": "Oct 2026",
+    "summary": "An IoT app that ranks jogging routes by heat, humidity, distance and shade. I designed the app screens.",
+    "points": [
+      "Proposed ESP32 and DHT22 sensors to measure temperature and humidity along jogging routes",
+      "Firebase stores the readings and a Flutter app shows live conditions and a route map",
+      "Routes are ranked by heat, humidity, distance and shade, and marked Suitable, Use Caution or Not Recommended with a reason",
+      "Designed the app screens, from login and home to the route map"
+    ],
+    "tech": ["ESP32", "DHT22", "Firebase", "Flutter"],
+    "links": [{ "label": "View project", "url": "https://nilro03.github.io/SmartJog.github.io/" }],
+    "cover": "smartjog-cover.jpg",
+    "images": ["smartjog-1.jpg", "smartjog-2.jpg", "smartjog-3.jpg"]
+  }
+]
